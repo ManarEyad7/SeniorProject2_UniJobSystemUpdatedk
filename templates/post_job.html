@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Employee</title>
+
+    <!-- Website icon -->
+    <link rel="icon" href="{{url_for('static',filename='images/U.svg')}}">
+
+    <!-- Core CSS files -->
+    <link rel="stylesheet" href="{{url_for('static',filename='vendors/css/vendor.bundle.base.css')}}">
+
+    <!-- Page-specific plugin CSS -->
+    <link rel="stylesheet" href="{{url_for('static',filename='vendors/ti-icons/css/themify-icons.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='vendors/select2/select2.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='vendors/feather/feather.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/vertical-layout-light/style.css')}}">
+
+    <!-- JS files -->
+    <script type="text/javascript" src="{{url_for('static',filename='vendors/css/vendor.bundle.base.css')}}"></script>
+    
+</head>
+
+<body>
+    <div class="container-scroller ">
+        <!-- partial:partials/_navbar.html -->
+        <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex ">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+                <div class="navbar-brand brand-logo mr-5"><img src="static/images/logo1d.svg" class="mr-2" alt="logo" />
+                </div>
+                <div class="navbar-brand brand-logo-mini"><img src="static/images/U.svg" alt="logo" /></div>
+            </div>
+            <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+
+                <div class="dropdown" style="margin-right: 2.5em; ">
+                    <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuSizeButton3"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Employee
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuSizeButton3">
+                        <li>
+                            <p style="border-bottom: 1px solid;">{{ user[4] }}</p>
+                        </li>
+                        <a class="dropdown-item" href="{{url_for('login')}}">Log out</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+
+        <div class="container-fluid page-body-wrapper w-100 ">
+            <div class="content-wrapper" style="min-height: inherit;">
+                <div class="container">
+                    <div class="row mt-5">
+                        <div class="col-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body" style="margin: 1rem;">
+                                    
+                                    <h4 class="card-title" style="font-size: 20px;">Post Job</h4>
+                                    <p class="card-description" style="color:  #222831; font-size: 15px;">
+                                        Fill out this form to gain the best candidates for your opportunity
+                                    </p><hr style="margin-bottom: 1.5rem;">
+
+                                    <form id="jobForm" class="forms-sample" method="POST">
+
+                                        <div class="form-group"> <!-- Title -->
+                                            <label for="exampleInputName1" class="font-weight-bold" style="font-size: 15px;">Job Title: </label>
+                                            <input type="text" class="form-control" id="exampleInputName1"
+                                                name="job_title" placeholder="Job title" required>
+                                        </div>
+
+                                        <div class="form-group"> <!-- Required Major -->
+                                            <label class="font-weight-bold" style="font-size: 15px;">Required Major:</label>
+                                            <select class="js-example-basic-single content-wrapper w-100" name="required_major" style="width: 100%;" required>
+                                                <option value="" disabled selected hidden>Select a Major</option>
+                                                <option value="Computer Science">Computer Science</option>
+                                                <option value="Artificial Intelligence">Artificial Intelligence</option>
+                                                <option value="Data Science">Data Science</option>
+                                                <option value="Cyber Security">Cyber Security</option>
+                                                <option value="Software Engineering">Software Engineering</option>
+                                                <option value="Computer Engineering">Computer Engineering</option>
+                                                <option value="Marketing">Marketing</option>
+                                                <option value="Applied Sports">Applied Sports</option>
+                                                <option value="Information Systems">Information Systems</option>
+                                                <option value="Informatics Engineering">Informatics Engineering</option>
+                                                <option value="Companies Management">Companies Management</option>
+                                                <option value="Applied Biochemistry">Applied Biochemistry</option>
+                                                <option value="Risk Management and Insurance">Risk Management and Insurance</option>
+                                                <option value="Accounting">Accounting</option>
+                                                <option value="Human Medicine">Human Medicine</option>
+                                                <option value="Microbiology">Microbiology</option>
+                                                <option value="Finance and Economics">Finance and Economics</option>
+                                                <option value="Mathematics">Mathematics</option>
+                                                <option value="Industrial chemistry">Industrial chemistry</option>
+                                                <option value="Physics">Physics</option>
+                                                <option value="Electrical and Electronic Engineering">Electrical and Electronic Engineering</option>
+                                                <option value="Mechanical Engineering and Materials Engineering">Mechanical Engineering and Materials Engineering</option>
+                                                <option value="Administrative information system">Administrative information system</option>
+                                                <option value="Health services and hospitals management">Health services and hospitals management</option>
+                                                <option value="Chemical Engineering">Chemical Engineering</option>
+                                                <option value="Energy Systems Engineering">Energy Systems Engineering</option>
+                                                <option value="Medical Laboratory">Medical Laboratory</option>
+                                                <option value="Geographic Information Systems">Geographic Information Systems</option>
+                                                <option value="Social Service">Social Service</option>
+                                                <option value="History and Archeology">History and Archeology</option>
+                                                <option value="Mathematical Sciences">Mathematical Sciences</option>
+                                                <option value="law Department">law Department</option>
+                                                <option value="Judicial Studies">Judicial Studies</option>
+                                                <option value="Digital Media">Digital Media</option>
+                                                <option value="Quranic Sciences">Quranic Sciences</option>
+                                                <option value="Translation Department">Translation Department</option>
+                                                <option value="English Language">English Language</option>
+                                                <option value="International languages">International languages</option>
+                                                <option value="Arabic language Department">Arabic language Department</option>
+                                                <option value="Graphic Design">Graphic Design</option>
+                                                <option value="Fashion Design">Fashion Design</option>
+                                                <option value="Interior Design">Interior Design</option>
+                                                <option value="Tourism and hospitality">Tourism and hospitality</option>
+                                                <option value="Architectural Engineering">Architectural Engineering</option>
+                                                <option value="Public Administration">Public Administration</option>
+                                                <option value="History">History</option>
+                                                <option value="Psychology">Psychology</option>
+                                                <option value="Business Management">Business Management</option>
+                                                <option value="No Preference">No Preference</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group"> <!-- GPA -->
+                                            <label class="font-weight-bold" style="font-size: 15px;">Minimum GPA:</label> 
+                                            <select class="js-example-basic-single content-wrapper w-100" name="min_gpa" style="width: 100%;" required>
+                                                <option value="" disabled selected>Select Minimum GPA</option>
+                                                <option value="5.0">5.0</option>
+                                                <option value="4.9">4.9</option>
+                                                <option value="4.8">4.8</option>
+                                                <option value="4.7">4.7</option>
+                                                <option value="4.6">4.6</option>
+                                                <option value="4.5">4.5</option>
+                                                <option value="4.4">4.4</option>
+                                                <option value="4.3">4.3</option>
+                                                <option value="4.2">4.2</option>
+                                                <option value="4.1">4.1</option>
+                                                <option value="4.0">4.0</option>
+                                                <option value="3.9">3.9</option>
+                                                <option value="3.8">3.8</option>
+                                                <option value="3.7">3.7</option>
+                                                <option value="3.6">3.6</option>
+                                                <option value="3.5">3.5</option>
+                                                <option value="3.4">3.4</option>
+                                                <option value="3.3">3.3</option>
+                                                <option value="3.2">3.2</option>
+                                                <option value="3.1">3.1</option>
+                                                <option value="3.0">3.0</option>
+                                                <option value="2.9">2.9</option>
+                                                <option value="2.8">2.8</option>
+                                                <option value="2.7">2.7</option>
+                                                <option value="2.6">2.6</option>
+                                                <option value="2.5">2.5</option>
+                                                <option value="2.0">2.0</option>
+                                                <option value="1.0">1.0</option>
+                                                <option value="No Preference">No Preference</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group"> <!-- Skills -->
+                                            <label class="font-weight-bold" style="font-size: 15px;">Required Skills:</label>
+                                            <select class="js-example-basic-multiple content-wrapper w-100" name="skills" style="width: 100%;" multiple="multiple" required>
+                                                <option value="Programming">Programming</option>
+                                                <option value="Web Development">Web Development</option>
+                                                <option value="Database Management">Database Management</option>
+                                                <option value="Data Science">Data science</option>
+                                                <option value="Graphic Design">Graphic design</option>
+                                                <option value="Writing Contests">Writing contests</option>
+                                                <option value="Communication">Communication</option>
+                                                <option value="Teamwork">Team work</option>
+                                                <option value="Time Management">Time Management</option>
+                                                <option value="Adaptability">Adaptability</option>
+                                                <option value="Technical Knowledge">Technical Knowledge</option>
+                                                <option value="Organization">Organization</option>
+                                                <option value="Problem solving">Problem solving</option>
+                                                <option value="Leadership">Leadership</option>
+                                                <option value="Thrive under pressure">Thrive under pressure</option>
+                                                <option value="Assertiveness skill">Assertiveness skill</option>
+                                                <option value="Research">Research</option>
+                                                <option value="Writing">Writing</option>
+                                                <option value="Subject knowledge">Subject knowledge</option>
+                                                <option value="Proofreading">Proofreading</option>
+                                                <option value="Attention to details">Attention to details</option>
+                                                <option value="Curriculum planning">Curriculum planning</option>
+                                                <option value="Computer skills">Computer skills</option>
+                                                <option value="Microsoft PowerPoint">Microsoft PowerPoint</option>
+                                                <option value="WordPress">WordPress</option>
+                                                <option value="Microsoft Excel">Microsoft Excel</option>
+                                                <option value="R programming language">R programming language</option>
+                                                <option value="Machine learning">Machine learning</option>
+                                                <option value="SQL">SQL</option>
+                                                <option value="Data analysis">Data analysis</option>
+                                                <option value="Decision-making">Decision-making</option>
+                                                <option value="Interpersonal skills ">Interpersonal skills </option>
+                                                <option value="Stress management">Stress management</option>
+                                                <option value="Dependability">Dependability</option>
+                                                <option value="Critical thinking">Critical thinking</option>
+                                                <option value="Customer service">Customer service</option>
+                                                <option value="Sales">Sales</option>
+                                                <option value="Project management">Project management</option>
+                                                <option value="Presentation skills">Presentation skills</option>
+                                                <option value="Public speaking">Public speaking</option>
+                                                <option value="Creativity">Creativity</option>
+                                                <option value="Photoshop">Photoshop</option>
+                                                <option value="Illustrator">Illustrator</option>
+                                                <option value="Editior">Editior</option>
+                                                <option value="Digital publishing">Digital publishing</option>
+                                                <option value="Fashion Design">Fashion Design</option>
+                                                <option value="Public Relations and Institutional Communication Management">Public Relations and Institutional Communication Management</option>
+                                                <option value="Quality and food safety management">Quality and food safety management</option>
+                                                <option value="Marketing tourist destinations">Marketing tourist destinations</option>
+                                                <option value="Developing hotel sales">Developing hotel sales</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group" > <!-- Required Languages -->
+                                            <label class="font-weight-bold" style="font-size: 15px;">Required Languages:</label>
+                                            <select id="required_languages" class="js-example-basic-multiple content-wrapper w-100" name="required_languages" style="width: 100%;"  multiple="multiple" required>
+                                                <option value="Arabic">Arabic</option>
+                                                <option value="English">English</option>
+                                                <option value="Turkish">Turkish</option>
+                                                <option value="Chinese">Chinese</option>
+                                                <option value="Spanish">Spanish</option>
+                                                <option value="Korean">Korean</option>
+                                                <option value="Japanese">Japanese</option> 
+                                                <option value="No Preference">No Preference</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group"> <!-- Experience -->
+                                            <label class="font-weight-bold"style="font-size: 15px;">Would You Prefer Experienced Seekers?</label>
+                                            <select id="experience" class="js-example-basic-single content-wrapper w-100" name="experience" style="width: 100%;"  required>
+                                                <option value="" disabled selected hidden>Choose One</option>
+                                                <option value="Yes">Yes</option>
+                                                <option value="No">No</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group"> <!-- fixed or flexible -->
+                                            <label class="font-weight-bold"style="font-size: 15px;">Are your working hours fixed or flexible?</label>
+                                            <select id="fixed-flexible" class="js-example-basic-single content-wrapper w-100" name="fixed-flexible" style="width: 100%;" onchange="fixedORflexible(this.value)" required>
+                                                <option value="" disabled selected hidden>Choose One</option>
+                                                <option value="Fixed">Fixed</option>
+                                                <option value="Flexible">Flexible</option>
+                                            </select>
+                                        </div>
+
+                                        <div id="fixed-hours" class="form-group" style="display: none;">  <!-- fixed Required hours -->
+                                            <label for="exampleInputHours" class="col-sm-3 col-form-label font-weight-bold" style="font-size: 15px;">Required Working Hours:</label>
+                                            <div class="availability-container">
+                                                <div class="day" style="margin-left: 20px;">
+                                                    <p class="font-weight-bold"> Please enter the number of periods available during the day and the corresponding times</p>
+                                                </div>
+                                                <hr>
+                                                
+                                                <div class="day"> <!-- Sunday availability -->
+                                                    <label for="sunday" class="font-weight-bold">Sunday:</label>
+                                                    <input style="max-width: 97%;"   type="number" class="interval" id="sunday-interval" name="sunday-interval" min="0" max="1" placeholder="Number of Available Periods" >
+                                                    <div id="sunday-periods"></div>
+                                                </div>
+                                                <hr>
+
+                                                <div class="day"> <!-- Monday availability -->
+                                                    <label for="monday" class="font-weight-bold">Monday:</label>
+                                                    <input style="max-width: 97%;" type="number" class="interval" id="monday-interval" name="monday-interval" min="0" max="1" placeholder="Number of Available Periods">
+                                                    <div id="monday-periods"></div>
+                                                </div>
+                                                <hr>
+
+                                                <div class="day"> <!-- Tuesday availability -->
+                                                    <label for="tuesday" class="font-weight-bold">Tuesday:</label>
+                                                    <input style="max-width: 97%;" type="number" class="interval" id="tuesday-interval" name="tuesday-interval" min="0" max="1" placeholder="Number of Available Periods" >
+                                                    <div id="tuesday-periods"></div>
+                                                </div>
+                                                <hr>
+
+                                                <div class="day"> <!-- Wednesday availability -->
+                                                    <label for="wednesday" class="font-weight-bold">Wednesday:</label>
+                                                    <input style="max-width: 97%;" type="number" class="interval" id="wednesday-interval" name="wednesday-interval" min="0" max="1" placeholder="Number of Available Periods" >
+                                                    <div id="wednesday-periods"></div>
+                                                </div>
+                                                <hr>
+                                                   
+                                                <div class="day"> <!-- Thursday availability -->
+                                                    <label for="thursday" class="font-weight-bold">Thursday:</label>
+                                                    <input style="max-width: 97%;" type="number" class="interval" id="thursday-interval" name="thursday-interval" min="0" max="1" placeholder="Number of Available Periods" >
+                                                    <div id="thursday-periods"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="flexible-hours" class="form-group" style="display: none;"> <!-- flexible Required hours -->
+                                            <label for="exampleInputHours" class="font-weight-bold" style="font-size: 15px;">Flexible Required Working Hours (per week):</label>
+                                                <input type="number" class="form-control" id="exampleInputHours" name="flexible_hours" 
+                                                placeholder="Flexible Working Hours" pattern="\d*" min="0" max="15" style="width: 100%;">
+                                        </div>
+
+
+                                        <div class="form-group">  <!-- Duration -->
+                                            <label class="font-weight-bold" style="font-size: 15px;">Job Duration (in weeks):</label>
+                                            <input type="number" class="form-control" name="job_duration" placeholder="Job duration (in weeks)" 
+                                            pattern="\d*" min="1" max="10" style="width: 100%;" required>
+                                        </div>
+
+                                        <div class="form-group"> <!-- Work Location -->
+                                            <label class="font-weight-bold" style="font-size: 15px;">Work Location:</label>
+                                            <select class="js-example-basic-single content-wrapper w-100" name="work_location" style="width: 100%;"  required>
+                                                <option value="" disabled selected hidden>Choose One</option>
+                                                <option value="remote">Remote</option>
+                                                <option value="onsite">Onsite</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group"> <!-- Positions Available -->
+                                            <label for="exampleInputNoPA" class="font-weight-bold">Number of Positions Available (per week):</label>
+                                                <input type="number" class="form-control" id="exampleInputNoPA" name="positions_available"
+                                                    placeholder="Number of Positions Available" pattern="\d*" min="1" max="10" style="width: 100%;" required>
+                                        </div>
+
+                                        <div class="text-center"> <!-- Buttons -->
+                                            <button id="jobSubmit-button" type="submit" class="btn btn-primary mr-2" style="font-size: 15px;">Submit</button>
+                                            <button id="cancel-button" onclick="location.href = '/employeeCancle';" class="btn btn-light" style="font-size: 15px;">Cancel</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+
+
+<script> /*-- script for time picker  --*/
+
+    function activate() {
+        document.head.insertAdjacentHTML("beforeend", `
+            <style>
+                .time-picker {
+                    position: absolute;
+                    display: inline-block;
+                    padding: 10px;
+                    background: #eeeeee;
+                    border-radius: 6px;
+                }
+    
+                .time-picker__select {
+                    -webkit-appearance: none;
+                    -moz-appearance: none;
+                    appearance: none;
+                    outline: none;
+                    text-align: center;
+                    border: 1px solid #dddddd;
+                    border-radius: 6px;
+                    padding: 6px 10px;
+                    background: #ffffff;
+                    cursor: pointer;
+                    font-family: 'Heebo', sans-serif;
+                }
+            </style>
+        `);
+    
+        document.querySelectorAll(".time-pickable").forEach((timePickable) => {
+            let activePicker = null;
+            timePickable.addEventListener("focus", () => {
+                if (activePicker) return;
+                activePicker = show(timePickable);
+                const onClickAway = ({ target }) => {
+                    if (
+                        target === activePicker ||
+                        target === timePickable ||
+                        activePicker.contains(target)
+                        ) {
+                            return;
+                        }
+                        document.removeEventListener("mousedown", onClickAway);
+                        document.body.removeChild(activePicker);
+                        activePicker = null;
+                };
+                document.addEventListener("mousedown", onClickAway);
+            });
+        });
+            
+            const intervalInputs = document.querySelectorAll("[id$='-interval']");
+            intervalInputs.forEach((intervalInput) => {
+                intervalInput.addEventListener("change", () => {
+                    const containerId = intervalInput.id.replace("-interval", "-periods");
+                    const container = document.getElementById(containerId);
+                    const numPeriods = parseInt(intervalInput.value);
+                    // Clear existing period containers
+                    container.innerHTML = "";
+
+                    // Generate period containers with start and end time inputs
+                    for (let i = 0; i < numPeriods; i++) {
+                        const periodContainer = document.createElement("div");
+                        periodContainer.classList.add("period");
+
+                        const periodLabel = document.createElement("label");
+                        periodLabel.textContent = `Period ${i + 1}:`;
+                        periodLabel.style.margin = "8px 5px 5px 5px";
+
+                        const startInput = document.createElement("input");
+                        startInput.type = "text";
+                        startInput.classList.add("time-pickable", "start-time");
+                        //startInput.id = "start-time"
+                        startInput.id = `${intervalInput.id}-start-time-${i}`; // Unique ID for start time input
+                        startInput.name = `${intervalInput.id}-start-time-${i}`; // Unique name for start time input
+                        startInput.placeholder = "Start Time (hour:minute)";
+                        startInput.style.border = "1px solid rgb(207, 212, 217)";
+                        startInput.style.margin = "5px 5px 5px 5px";
+                        startInput.pattern = "(0[1-9]|1[0-2]):[0-5][0-9] (am|pm)"
+                        startInput.style.borderRadius = "4px";
+                        startInput.required = true;
+
+                        const endInput = document.createElement("input");
+                        endInput.type = "text";
+                        endInput.classList.add("time-pickable", "end-time");
+                        //endInput.id = "end-time"
+                        endInput.id = `${intervalInput.id}-end-time-${i}`; // Unique ID for end time input
+                        endInput.name = `${intervalInput.id}-end-time-${i}`; // Unique name for end time input
+                        endInput.placeholder = "End Time (hour:minute)";
+                        endInput.style.border = "1px solid rgb(207, 212, 217)";
+                        endInput.style.margin = "5px 5px 5px 5px";
+                        startInput.pattern = "(0[1-9]|1[0-2]):[0-5][0-9] (am|pm)"
+                        endInput.style.borderRadius = "4px";
+                        endInput.required = true;
+
+                        periodContainer.appendChild(periodLabel);
+                        periodContainer.appendChild(startInput);
+                        periodContainer.appendChild(endInput);
+
+                        container.appendChild(periodContainer);
+
+                    }
+
+                    // Activate the time picker for the new inputs
+                    activate();
+
+                });
+            });
+
+    }
+    
+    
+    function show(timePickable) {
+        const picker = buildPicker(timePickable);
+        const left = timePickable.offsetLeft + picker.offsetWidth;
+        const top = timePickable.offsetTop;
+
+        picker.style.left = `${left+150}px`;
+        picker.style.top = `${top+90}px`;
+
+        document.body.appendChild(picker);
+
+        return picker;
+    }
+    
+    function buildPicker(timePickable) {
+        const picker = document.createElement("div");
+        const hourOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(numberToOption);
+	    const minuteOptions = [0, 10, 20, 30, 40, 50].map(numberToOption);
+        
+    
+        picker.classList.add("time-picker");
+        picker.innerHTML = `
+            <select class="time-picker__select">
+                ${hourOptions.join("")}
+            </select>
+            :
+            <select class="time-picker__select">
+                ${minuteOptions.join("")}
+            </select>
+            <select class="time-picker__select">
+                <option value="am">am</option>
+                <option value="pm">pm</option>
+            </select>
+        `;
+    
+        const selects = getSelectsFromPicker(picker);
+    
+        selects.hour.addEventListener("change", () => timePickable.value = getTimeStringFromPicker(picker));
+        selects.minute.addEventListener("change", () => timePickable.value = getTimeStringFromPicker(picker));
+        selects.meridiem.addEventListener("change", () => timePickable.value = getTimeStringFromPicker(picker));
+
+        if (timePickable.value) {
+            const { hour, minute,meridiem } = getTimePartsFromPickable(timePickable);
+    
+            selects.hour.value = hour;
+            selects.minute.value = minute;
+            selects.meridiem.value = meridiem;
+        }
+    
+        return picker;
+    }
+    
+    function getTimePartsFromPickable(timePickable) {
+        const pattern = /^(\d+):(\d+) (am|pm)$/;
+        const [hour, minute,meridiem] = Array.from(timePickable.value.match(pattern)).splice(1);
+    
+        return {
+            hour,
+            minute,
+            meridiem
+        };
+    }
+    
+    function getSelectsFromPicker(timePicker) {
+        const [hour, minute,meridiem] = timePicker.querySelectorAll(".time-picker__select");
+    
+        return {
+            hour,
+            minute,
+            meridiem
+        };
+    }
+    
+    function getTimeStringFromPicker(timePicker) {
+        const selects = getSelectsFromPicker(timePicker);
+    
+        return `${selects.hour.value}:${selects.minute.value} ${selects.meridiem.value}`;
+    }
+    
+    function numberToOption(number) {
+        const padded = number.toString().padStart(2, "0");
+    
+        return `<option value="${padded}">${padded}</option>`;
+    }
+
+    activate();
+
+
+    /*********** Submit Button Event  *************/
+
+    // Custom validation
+    const submitButton = document.getElementById("jobSubmit-button");
+    submitButton.addEventListener("click",() => {
+
+        const periodContainers = document.querySelectorAll(".period");
+        let isValid = true;
+
+        periodContainers.forEach((periodContainer) => {
+            const startInput = periodContainer.querySelector(".start-time");
+            const endInput = periodContainer.querySelector(".end-time");
+
+            const startParts = getTimePartsFromPickable(startInput);
+            const endParts = getTimePartsFromPickable(endInput);
+
+            const startHours = parseInt(startParts.hour);
+            const startMinutes = parseInt(startParts.minute);
+            const startMeridiem = startParts.meridiem;
+            const endHours = parseInt(endParts.hour);
+            const endMinutes = parseInt(endParts.minute);
+            const endMeridiem = endParts.meridiem;
+
+            // Define the working hours range
+            // Additional condition for working hours
+            const workingHoursStart = 8; // 8 AM
+            const workingHoursEnd = 16; // 4 PM
+
+            //Check if the chosen time is within working hours
+            
+
+            
+            // Check if the start time is before the end time
+            if (
+                (startMeridiem === "pm" && endMeridiem === "am") ||
+                //(startMeridiem === endMeridiem && startHours > endHours) || // start hour is greater than the end hour
+                (startMeridiem === "am" && endMeridiem === "am" && startHours > endHours) ||
+                (startMeridiem === "pm" && endMeridiem === "pm" && startHours > endHours && !(startHours === 12)) ||
+                (startMeridiem === endMeridiem && startHours === endHours && startMinutes > endMinutes) ||
+                (startMeridiem === endMeridiem && startHours === endHours && startMinutes === endMinutes) ||
+                (endMeridiem === "am" && endHours === 12) ||
+                (startMeridiem === "am" && startHours < workingHoursStart) || // Start time is before working hours
+                (startMeridiem === "pm" && (startHours + 12) > workingHoursEnd && startHours !== 12) || // Start time is after working hours
+                (endMeridiem === "pm" && (endHours !== 12 && (endHours + 12) > workingHoursEnd)) // End time is after working hours
+            ) {
+                // Start time is greater than end time
+                isValid = false;
+                periodContainer.style.border = "1px solid red";
+                periodContainer.style.padding = "5px";
+                periodContainer.style.margin = "5px";
+
+                const errorSpan = periodContainer.querySelector("span");
+                if (!errorSpan) {
+                    const errorMessage = document.createElement("span");
+                    errorMessage.style.color = "red";
+                    errorMessage.textContent = "Invalid start or end times.";
+                    periodContainer.appendChild(errorMessage);
+                }
+            } 
+            if (isValid) {
+                periodContainer.style.removeProperty("border");
+                periodContainer.style.removeProperty("padding");
+                periodContainer.style.removeProperty("margin");
+                const errorSpan = periodContainer.querySelector("span");
+                if (errorSpan) {
+                    errorSpan.remove();
+                }
+            }
+        });
+
+        if (!isValid) {
+            // Display a message to the user indicating validation error
+            alert("Please ensure that the start time comes before the end time, and that the entered times fall within the allowed working hours.");
+            submitButton.disabled = true; // Disable the submit button
+            document.getElementById("start-time").value = "";
+            document.getElementById("end-time").value = "";
+        } 
+        submitButton.disabled = false; // Disable the submit button if validation fails, enable it if validation passes
+    });
+
+
+
+</script>
+
+
+<script> /* Make time fields visible if the check box is selected */
+    function toggleTimeFields(day) {
+        var timeFields = document.getElementById(day + "TimeFields");
+        var checkbox = document.getElementsByName(day + "Checkbox")[0];
+        
+        if (checkbox.checked) {
+            timeFields.style.display = "flex";
+        } else {
+            timeFields.style.display = "none";
+        }
+    }
+</script>
+
+<!-- 
+<script> /* Make time fields writable if the checkbox is checked  */
+    function toggleTimeFields(day) {
+    var timeFields = document.getElementById(day + "TimeFields").getElementsByTagName("input");
+    var checkbox = document.getElementsByName(day + "Checkbox")[0];
+
+    for (var i = 0; i < timeFields.length; i++) {
+        timeFields[i].disabled = !checkbox.checked;
+    }
+    }
+</script>-->
+
+<!-- Core JS files -->
+<script type="text/javascript" src="{{url_for('static',filename='vendors/js/vendor.bundle.base.js')}}"></script>
+
+<!-- Page-specific plugin JS -->
+<script src="../../static/typeahead.js/typeahead.bundle.min.js"></script>
+<script src="../../static/vendors/select2/select2.min.js"></script>
+
+<!-- Custom JS for this page -->
+<script src="../../static/js/file-upload.js"></script>
+<script src="../../static/js/typeahead.js"></script>
+<script src="../../static/js/select2.js"></script>
+
+</html>
+
+<script> /* if the working hours is fixed the question 'Required Working Hours' appear */
+
+    function fixedORflexible(value){
+        var FixedHoursGroup = document.getElementById("fixed-hours");
+        var FlexibleHoursGroup = document.getElementById("flexible-hours");
+
+        if (value === "Flexible") {
+            FlexibleHoursGroup.style.display = "block";
+            FixedHoursGroup.style.display = "none";
+        } 
+        else if(value === "Fixed") {
+            FixedHoursGroup.style.display = "block";
+            FlexibleHoursGroup.style.display = "none";
+        }
+        else{
+            FixedHoursGroup.style.display = "none";
+            FlexibleHoursGroup.style.display = "none";
+        }
+    }
+</script>

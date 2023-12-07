@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>view candidates</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="../../static/vendors/feather/feather.css">
+    <link rel="stylesheet" href="../../static/vendors/ti-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="../../static/vendors/css/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="../../static/css/vertical-layout-light/style.css">
+    <!-- endinject -->
+    <link rel="shortcut icon" href="../../static/images/favicon.png" />
+
+    <!-- Website icon -->
+    <link rel="icon" href="{{url_for('static',filename='images/U.svg')}}">
+    <style>
+        .clickable-icon {
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .clickable-icon:hover,
+        .clickable-icon:active {
+            transform: scale(1.2);
+        }
+
+        .student-row:hover {
+            cursor: pointer;
+        }
+
+        /* Add CSS for the card */
+        #student-info-form {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background-color: white;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            padding: 20px;
+            box-shadow: -4px 0px 8px 0 rgba(0, 0, 0, 0.2);
+            z-index: 99999;
+            overflow: auto;
+        }
+
+        #job-details {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background-color: white;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            padding: 20px;
+            box-shadow: -4px 0px 8px 0 rgba(0, 0, 0, 0.2);
+            z-index: 99999;
+            overflow: auto;
+        }
+
+        /* Media query for small screens */
+        @media (max-width: 768px) {
+            #job-details {
+                width: 100%;
+                /* Set the width to 100% for small screens */
+                height: 100vh;
+                /* Set the height to 100% of viewport height for small screens */
+                overflow-y: auto;
+            }
+        }
+
+        body {
+            min-height: 100vh;
+            /* This ensures the page has at least the height of the viewport */
+        }
+
+        /* Style the big border section */
+        #student-info-container {
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        /* Style sub-sections */
+        .sub-section {
+            border-top: 1px solid #ccc;
+            /* Line to separate sub-sections */
+            padding: 10px 0;
+            margin-bottom: 10px;
+            overflow: auto;
+
+        }
+
+        /* Style section titles */
+        .sub-section h4 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+
+        /* Add some spacing */
+        .sub-section p {
+            margin-bottom: 5px;
+        }
+
+        /* Add CSS to display "skills-label" and "student-skills" inline */
+        .inline-label {
+            display: inline-block;
+            margin-right: 10px;
+            /* Adjust the margin as needed for spacing */
+        }
+
+
+        /* Create an overlay to darken the background */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Adjust the opacity as needed */
+            z-index: 9999;
+            /* Ensure it's below the form */
+
+        }
+
+        .close-button {
+            position: absolute;
+            bottom: 20px;
+            /* Adjust the bottom value as needed */
+            left: 50%;
+            transform: translateX(-50%);
+            /* Center horizontally */
+        }
+
+        /* Media query for smaller screens */
+        @media (max-width: 768px) {
+            #student-info-form {
+                width: 100%;
+                /* Set the width to 100% for small screens */
+                height: 100vh;
+                max-height: 100vh;
+                /* Adjust the height as needed */
+                overflow: auto;
+            }
+
+
+        }
+
+
+
+
+        /* Media query for smaller screens */
+        @media (max-width: 500px) {
+
+            #kjjj {
+                display: -ms-grid;
+            }
+
+
+
+            .btn.btn-rounded {
+                width: 100%;
+                max-width: 400px;
+            }
+
+        }
+
+        /* Media query for smaller screens */
+        @media (min-width: 501px) {
+
+            #kjjj {
+                display: flex;
+            }
+
+
+        }
+
+        /* Media query for small screens */
+        @media (max-width: 768px) {
+
+            /* Hide columns you want to hide on small screens */
+            .custom-table-responsive th:nth-child(3),
+            .custom-table-responsive td:nth-child(3),
+            .custom-table-responsive th:nth-child(4),
+            .custom-table-responsive td:nth-child(4),
+            .custom-table-responsive th:nth-child(5),
+            .custom-table-responsive td:nth-child(5),
+            .custom-table-responsive th:nth-child(6),
+            .custom-table-responsive td:nth-child(6) {
+                display: none;
+            }
+
+            .small-b {
+                padding: 0px 0px 0px 0px;
+            }
+
+
+
+            /* Hide the description text */
+            .card-description {
+                display: none;
+            }
+
+            .close-button1 {
+                width: 100%;
+            }
+
+            .student-name {
+                margin-bottom: 5%;
+            }
+
+        }
+
+        @media (max-width: 415px) {
+
+            .custom-table-responsive th,
+            .custom-table-responsive th:nth-child(2),
+            .custom-table-responsive td:nth-child(2) {
+                display: none;
+            }
+
+
+        }
+
+        @media (max-height: 740px) {
+
+            .close-button1 {
+                width: 100%;
+            }
+
+
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div class="container-scroller ">
+        <!-- partial:partials/_navbar.html -->
+        <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex ">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+                <div class="navbar-brand brand-logo mr-5"><img src="../../static/images/logo1d.svg" class="mr-2"
+                        alt="logo" />
+                </div>
+                <div class="navbar-brand brand-logo-mini"><img src="../../static/images/U.svg" alt="logo" /></div>
+            </div>
+            <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+
+                <div class="dropdown" style="margin-right: 2.5em; ">
+                    <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuSizeButton3"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Employee
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuSizeButton3">
+                        <li> {{ user[4] }}
+                        </li>
+                        <a class="dropdown-item" href="{{url_for('login')}}">Log out</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container-fluid page-body-wrapper w-100 ">
+            <div class="content-wrapper" style="min-height: inherit;">
+                <div class="container">
+
+                    <div class="row mt-5"> <!-- headline #3b3d6f-->
+                        <div class="col-12 col-xl-12 mb-4 mb-xl-0 ">
+                            <h2 class="font-weight-bold text-center" style="color: darkslateblue;">Recommendations for
+                                the job {{ job_title[0] | capitalize }}</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- Add the return to previous page link here, outside the card -->
+                        <a href="/employee" id="return-link" class="btn btn-link " style="color: #3b3a88;">
+                            <i class="fa fa-chevron-circle-left "></i> View all posted jobs
+                        </a>
+                    </div>
+
+
+                    <div class="row" style="margin-top: 0rem;">
+
+                        <div class="col-lg-12 grid-margin stretch-card">
+
+
+                            <div class="card custom-card">
+                                <div class="card-body" style="margin: .7rem;">
+                                    <div class="row" style="margin-left: 0.5%;">
+
+
+
+
+                                        <!---->
+                                        <!-- On small screens, "View job details" and "View Unstatisfied Candidates" are above "Top Student Recommendations" -->
+                                        <div class="col-sm-12 d-sm-none">
+                                            <a href="/get_Unstaisfied_recommendations/{{job_id}}"
+                                                class="btn btn-link small-b" style="color: #3b3a88;">
+                                                <i class="fa fa-external-link-square"></i> View Unstatisfied Candidates
+                                            </a>
+                                            <a href="#" id="view-more-link" class="btn btn-link small-b"
+                                                style="color: #3b3a88;">
+                                                <i class="fa fa-external-link-square"></i> <span>View job details</span>
+                                            </a>
+                                            <hr>
+                                        </div>
+
+                                        <!-- On large screens, "Top Student Recommendations" is at the beginning of the row -->
+                                        <div class="col-lg-7 col-md-12">
+                                            <h4 class="card-title h">Top Student Recommendations</h4>
+                                            <p class="card-description">
+                                                Discover Ideal Candidates: Top Student Recommendations for This Job
+                                                Opportunity
+                                            </p>
+                                        </div>
+
+                                        <!-- On small screens, these columns are hidden -->
+                                        <div class="col-lg-5 col-md-12 d-none d-sm-block" style="bottom: 15px; ">
+                                            <a href="/get_Unstaisfied_recommendations/{{job_id}}"
+                                                class="btn btn-link small-b" style="color: #3b3a88;">
+                                                <i class="fa fa-external-link-square"></i> View Unsatisfied Candidates
+                                            </a>
+                                            <a href="#" id="view-more-link-l" class="btn btn-link small-b"
+                                                style="color: #3b3a88;">
+                                                <i class="fa fa-external-link-square"></i> <span>View job details</span>
+                                            </a>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="job-post d-flex justify-content-between align-items-center">
+                                        <div onclick="closeCandidateInfo()" class="overlay" id="overlay"></div>
+                                        <div class="table-responsive custom-table-responsive">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+
+                                                        <th>User</th>
+                                                        <th>Major</th>
+                                                        <th>GPA</th>
+                                                        <th>Skills</th>
+                                                        <th>Score</th>
+                                                        <th>Status</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% if recommendations %}
+                                                    {% for recommendation in recommendations %}
+                                                    <tr class="student-row"
+                                                        data-recommendation="{{ recommendation['name'][2] }}">
+                                                        <td>{{ recommendation['name'][3] }}</td>
+                                                        <td>{{ recommendation['seeker'][0] }}</td>
+                                                        <td>{{ recommendation['seeker'][1] }}</td>
+                                                        <td class="skill-cell">
+                                                            {% set skills = recommendation['seeker'][2].split(',') %}
+                                                            {% if skills|length > 0 %}
+                                                            <div class="skills-container">
+                                                                {% for skill in skills %}
+                                                                {% if loop.index <= 3 %} <label
+                                                                    class="badge badge-warning"
+                                                                    style="margin-bottom: 2px ">{{ skill.strip()
+                                                                    }}</label>
+                                                                    {% endif %}
+                                                                    {% endfor %}
+                                                                    {% if skills|length > 3 %}
+                                                                    <span class="more-skills"
+                                                                        onclick="toggleSkills(event, this)">Show
+                                                                        more</span>
+                                                                    <div class="hidden-skills" style="display: none;">
+                                                                        {% for skill in skills %}
+                                                                        {% if loop.index > 3 %}
+                                                                        {% if loop.index % 3 == 1 %}
+                                                                        <div class="skill-row">
+                                                                            {% endif %}
+                                                                            <label class="badge badge-warning"
+                                                                                style="margin-bottom: 2px ">{{
+                                                                                skill.strip() }}</label>
+                                                                            {% if loop.index % 3 == 0 or loop.last %}
+                                                                        </div>
+                                                                        {% endif %}
+                                                                        {% endif %}
+                                                                        {% endfor %}
+                                                                    </div>
+                                                                    {% endif %}
+                                                            </div>
+                                                            {% else %}
+                                                            <!-- Handle the case when there are no skills -->
+                                                            <span>No skills available</span>
+                                                            {% endif %}
+                                                        </td>
+                                                        <td>{{ recommendation['score'] | float | round(2) }} %</td>
+
+                                                    
+                                                   
+                                                        
+                                                        <td>
+                                                            
+                                                            
+                                                            {% if notifications%} 
+                                                            {% for notification in notifications %}
+                                                            {% if notification[1]== recommendation['name'][2] %} 
+                                                            
+                                                            {% if notification[7]==1  %}
+                                                            confirm <i id="check-icon"
+                                                                class="fa-regular fa-circle-check fa-2xl clickable-icon"
+                                                                style="color: #26bb02; margin-right: 10px;"></i>
+                                                            {% elif notification[7]==2 %}
+                                                            reject <i id="xmark-icon"
+                                                                class="fa-regular fa-circle-xmark fa-2xl clickable-icon"
+                                                                style="color: #e91619;"></i>
+                                                            {% elif notification[7]==0 %}
+                                                            underproccess
+                                                            {% else %}
+                                                            not sent 
+                                                            
+                                                            {% endif %}
+                                                            
+
+                                                            {% endif %}
+                                                            {% endfor %}
+                                                            
+                                                            {% else %}
+                                                            not sent notification yet
+                                                            {% endif %}
+                                                            
+
+                                            
+
+                                                            
+
+                                                        </td>
+                                                        
+                                                    
+
+                                                    </tr>
+                                                    {% endfor %}
+
+
+                                                    {% else %}
+                                                    <tr>
+                                                        <td colspan="7">No recommended students found for this job.</td>
+                                                    </tr>
+                                                    {% endif %}
+                                                </tbody>
+
+                                                
+
+
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="card" id="student-info-form" style="display: none; ">
+            <div class="card-body">
+                <div id="kjjj" style=" justify-content:space-between; flex-wrap: wrap;">
+                    <h3 class="student-name" id="student-name"></h3>
+
+                    <div id="l" style="flex-grow: 1; display: flex; flex-wrap: wrap; justify-content: flex-end; ">
+                        <button class="btn btn-outline-primary btn-rounded btn-fw btn-sm" id="send-notification-button"
+                            style="padding-left: 30px; padding-right: 30px; margin-bottom: 10px;">
+                            <span style="display: -ms-inline-flexbox; text-align: center; width: 100%;">Send
+                                Notification</span>
+                        </button>
+
+                        <button class="btn btn-inverse-primary btn btn-rounded btn-fw btn-sm"
+                            style="padding-left: 30px; padding-right: 30px; margin-bottom: 10px; margin-left: 5px;">
+                            <span style="display: -ms-inline-grid; text-align: center; width: 100%; ">Hire</span>
+                        </button>
+
+                    </div>
+                </div>
+                <div style="margin-top: 20px;">
+
+                    <!-- Big Border Section -->
+                    <div id="student-info-container">
+                        <!-- Contact Information Sub-Section -->
+                        <div class="sub-section">
+                            <h4>Contact Information</h4>
+                            <p style="font-size: 15px;">Phone Number: <span id="student-phone"></span></p>
+                            <p style="font-size: 15px;">Email: <span id="student-email"></span></p>
+                        </div>
+
+                        <!-- Academic Information Sub-Section -->
+                        <div class="sub-section">
+                            <h4>Academic Information</h4>
+                            <p style="font-size: 15px;">ID: <span id="student-id"></span></p>
+                            <p style="font-size: 15px;">Major: <span id="student-major"></span></p>
+                            <p style="font-size: 15px;">GPA: <span id="student-gpa"></span></p>
+                            <div style="font-size: 15px;" id="student-skills" class="skills-container">
+                                <p style="font-size: 15px;" id="skills-label">Skills:</p>
+                            </div>
+
+                            <div style="margin-top: 7px;"></div>
+
+                            <p style="font-size: 15px;">Experience: <span id="student-experience"></span>
+                            </p>
+                            <p style="font-size: 15px;">Languages: <span id="student-languages"></span>
+                            </p>
+                        </div>
+                        <div class="sub-section">
+                            <div style="margin-top: 20px;"> </div>
+
+                            <h4 style="float: left;">Curriculum Vitae</h4>
+                            <p style="text-align: right ;">
+                                <a class="btn btn-primary btn-sm" id="cv-download-link" href="#" download>Download
+                                    CV</a>
+                            </p>
+                            <p id="cv-status"></p>
+                            <!-- This paragraph will display the CV status -->
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 20px;"> </div>
+
+                    <!-- Availability Sub-Section -->
+
+                    <div class="sub-section">
+                        <h4 class="">Availability</h4>
+                        <p style="font-size: 15px;">Available Hours(per week): <span id="student-availability"></span>
+                        </p>
+                        <p style="font-size: 15px;">Work Preference: <span id="student-work-preference"></span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="sub-section" style="display: flex; justify-content: center; align-items: center;">
+                    <button class="btn btn-primary btn-rounded close-button1" style="margin-top: 2%;"
+                        onclick="closeCandidateInfo()">Close</button>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card" id="job-details" style="display: none; ">
+            <div class="card-body">
+                <div style="display: flex; justify-content: space-between; ">
+                    <h3> Job Details </h3>
+                </div>
+                <div style="margin-top: 20px;"> </div>
+                <div class="sub-section">
+                    <div style="margin-top: 15px;"> </div>
+                    <h4 style="font-size: 20px;"> Job Title : <span id="job-title"></span></h4>
+                </div>
+
+
+                <div id="student-info-container">
+                    <!-- Contact Information Sub-Section -->
+                    <div class="sub-section">
+                        <h4>Job Requirements</h4>
+                        <div style="margin-top: 25px;"></div>
+
+
+                        <p style="font-size: 15px;">Major: <span id="major"></span></p>
+                        <div style="margin-top: 10px;"> </div>
+
+
+                        <p style="font-size: 15px;">Skills: <span id="skills"></span>
+                        </p>
+                        <div style="margin-top:10px;"> </div>
+
+
+                        <p style="font-size: 15px;">Minimum GPA: <span id="gpa"></span></p>
+                        <div style="margin-top: 10px;"> </div>
+
+
+                        <p style="font-size: 15px;">Experience: <span id="experience"></span>
+                        </p>
+                        <div style="margin-top: 10px;"> </div>
+
+
+                        <p style="font-size: 15px;">Required Languages:
+                            <span id="required_languages"></span>
+                        </p>
+                    </div>
+
+                    <!-- Academic Information Sub-Section -->
+                    <div class="sub-section">
+                        <h4>Job Information</h4>
+                        <div style="margin-top: 20px;"> </div>
+
+
+                        <pstyle="font-size: 15px;">Working Hours:
+                            <span id="working_hours"></span></p>
+                            <div style="margin-top: 10px;"> </div>
+
+
+                            <p style="font-size: 15px;">
+                                Positions
+                                Available: <span id="positions_available"></span>
+                            </p>
+                            <div style="margin-top: 10px;"> </div>
+
+
+                            <p style="font-size: 15px;">
+                                Work
+                                Location: <span id="work_location"></span>
+                            </p>
+                            <div style="margin-top: 10px;"></div>
+                            <div class="sub-section"
+                                style="display: flex; justify-content: center; align-items: center;">
+                                <button class="btn btn-primary btn-rounded" style="margin-top: 2%;"
+                                    onclick="closeJobDetails()">Close</button>
+                            </div>
+
+
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+    </div>
+
+
+    <!-- plugins:js -->
+    <script type="text/javascript" src="{{url_for('static',filename='vendors/js/vendor.bundle.base.js')}}"></script>
+    <!-- endinject -->
+
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="../../static/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="../../static/js/off-canvas.js"></script>
+    <script src="../../static/js/hoverable-collapse.js"></script>
+    <script src="../../static/js/template.js"></script>
+    <script src="../../static/js/settings.js"></script>
+    <script src="../../static/js/todolist.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page-->
+    <!-- End custom js for this page-->
+</body>
+
+</html>
+
+
+
+<script>
+
+    // Get the check icon by its id
+    var checkIcon = document.getElementById('check-icon');
+
+    // Add click event listener to the check icon
+    checkIcon.addEventListener('click', function () {
+        // Update the message element with the desired message for the check icon
+        document.getElementById('message').textContent = 'Check icon clicked!';
+        // Add your custom action logic for the check icon here
+    });
+
+    // Get the x mark icon by its id
+    var xmarkIcon = document.getElementById('xmark-icon');
+
+    // Add click event listener to the x mark icon
+    xmarkIcon.addEventListener('click', function () {
+        // Update the message element with the desired message for the x mark icon
+        document.getElementById('message').textContent = 'X mark icon clicked!';
+        // Add your custom action logic for the x mark icon here
+    });
+</script>
+
+<script>
+    var hiddenSkills = document.querySelector(".hidden-skills");
+    var showMoreButton = document.querySelector(".more-skills");
+
+    function toggleSkills(event, button) {
+        // Stop the propagation of the click event to prevent it from reaching the table row
+        event.stopPropagation();
+
+        const hiddenSkills = button.nextElementSibling;
+        if (hiddenSkills.style.display === "none" || hiddenSkills.style.display === "") {
+            hiddenSkills.style.display = "block";
+            button.innerText = "Show less";
+        } else {
+            hiddenSkills.style.display = "none";
+            button.innerText = "Show more";
+        }
+    }
+
+    // Add click event listener to table rows
+    const rows = document.querySelectorAll('.student-row');
+    rows.forEach(row => {
+        row.addEventListener('click', function () {
+            // Extract the candidate's ID from the data attribute
+            const candidateId = row.dataset.recommendation;
+
+            // Make an AJAX request to fetch candidate info
+            // Replace 'your_backend_api_url' with the actual URL of your backend API
+            fetch(`/get_candidate/${candidateId}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('student-id').textContent = data.id;
+                    // Update the form with the fetched data
+                    document.getElementById('student-name').textContent = data.name;
+                    // Add the phone number
+                    document.getElementById('student-major').textContent = data.major;
+                    document.getElementById('student-phone').textContent = data.phone;
+                    document.getElementById('student-email').textContent = data.email;
+
+                    document.getElementById('student-gpa').textContent = data.gpa;
+
+                    // Split the skills by comma
+                    const skillsArray = data.skills.split(',').map(skill => skill.trim());
+
+                    // Create label elements for each skill
+                    const skillsContainer = document.getElementById('student-skills');
+                    skillsContainer.innerHTML = ''; // Clear the container before adding labels
+
+                    // Add "Skills:" paragraph
+                    const skillsParagraph = document.createElement('p');
+                    skillsParagraph.textContent = 'Skills:';
+                    skillsParagraph.style.fontSize = "15px";
+
+                    skillsContainer.appendChild(skillsParagraph);
+
+                    skillsArray.forEach(skill => {
+                        const skillLabel = document.createElement('span');
+                        skillLabel.textContent = skill;
+                        skillLabel.classList.add('badge', 'badge-warning'); // Apply CSS classes for styling
+                        skillLabel.style.marginRight = '5px'; // Add margin to create space between labels
+                        skillLabel.style.marginBottom = '5px'; // Add margin to create space between labels
+
+                        skillsParagraph.style.fontSize = '15px:';
+
+                        skillsContainer.appendChild(skillLabel);
+                    });
+
+
+                    document.getElementById('student-experience').textContent = data.experience;
+                    document.getElementById('student-languages').textContent = data.languages;
+                    document.getElementById('student-availability').textContent = data.availability;
+                    document.getElementById('student-work-preference').textContent = data.work_preference;
+
+                    // Set the CV download link and status
+                    const cvDownloadLink = document.getElementById('cv-download-link');
+                    const cvStatus = document.getElementById('cv-status');
+
+                    // Check if there is a value in data.cv
+                    if (data.cv) {
+                        // If data.cv has a value, set the link and display "Download CV"
+                        cvDownloadLink.href = `{{ url_for('download', file_id=0) }}`.replace('0', data.cv);
+                        cvDownloadLink.style.display = 'inline-block';
+                        cvStatus.textContent = ''; // Clear the status message
+                    } else {
+                        // If data.cv is empty, display a message and hide the download link
+                        cvDownloadLink.style.display = 'none';
+                        cvStatus.textContent = 'No CV uploaded';
+                        cvStatus.style.textAlign = 'right';
+
+
+                    }
+
+
+                    // Display the form
+                    // Show the form and overlay
+                    document.getElementById('student-info-form').style.display = 'block';
+                    document.getElementById('overlay').style.display = 'block';
+
+
+                });
+        });
+    });
+
+    // Function to close the form
+    function closeCandidateInfo() {
+        // Hide the card and overlay
+        document.getElementById('student-info-form').style.display = 'none';
+
+        document.getElementById('overlay').style.display = 'none';
+    }
+
+    // Add click event listener to the overlay to close the card
+    document.getElementById('overlay').addEventListener('click', closeCandidateInfo);
+    // Add click event listener to the "Show more" button
+    showMoreButton.addEventListener('click', toggleSkills);
+</script>
+<script>
+    // Function to handle the "Send Notification" button click
+    function sendNotification() {
+        const studentId = document.getElementById('student-id').textContent;
+
+        // Make an AJAX request to your Flask route to send the student_id
+        fetch(`/notify/${studentId}/{{ job_id }}`, {
+            method: 'POST', // Use 'POST' or 'GET' depending on your server implementation
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => {
+                if (response.status === 200) {
+                    alert('Notification sent successfully!');
+                    closeCandidateInfo(); // Close the candidate info form after sending the notification
+                } else if (response.status === 300) {
+                    alert('Cannot send notification. Maximum positions filled.');
+                } else {
+                    alert('Failed to send notification. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+    // Add a click event listener to the "Send Notification" button
+    const sendNotificationButton = document.getElementById('send-notification-button');
+    sendNotificationButton.addEventListener('click', sendNotification);
+</script>
+
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const viewMoreLink = document.querySelector('#view-more-link');
+
+        const jobDetails = document.querySelector('#job-details');
+        const jobTitle = document.querySelector('#job-title');
+
+        viewMoreLink.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            // Fetch job information using AJAX
+            fetch(`/get_job_info/{{ job_id }}`)
+                .then(response => response.json())
+                .then(data => {
+
+                    // Add more job details as needed
+                    // Update the job details card/section with the fetched data
+                    jobTitle.textContent = data.title;
+                    document.getElementById('major').textContent = data.major;
+                    document.getElementById('skills').textContent = data.skills;
+                    document.getElementById('gpa').textContent = data.gpa;
+                    document.getElementById('working_hours').textContent = data.working_hours;
+                    document.getElementById('experience').textContent = data.experience;
+                    document.getElementById('positions_available').textContent = data.positions_available;
+                    document.getElementById('required_languages').textContent = data.required_languages;
+                    document.getElementById('work_location').textContent = data.work_location;
+
+                    // Show the job details card/section
+                    jobDetails.style.display = 'block';
+                    document.getElementById('overlay').style.display = 'block';
+
+
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    });
+    // Function to close the form
+    // Function to close the job details card
+    function closeJobDetails() {
+        // Hide the card and overlay
+        document.getElementById('job-details').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+    }
+
+    // Add click event listener to the overlay to close the card
+    document.getElementById('overlay').addEventListener('click', closeJobDetails);
+
+
+
+</script>
+
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const viewMoreLink = document.querySelector('#view-more-link-l');
+
+        const jobDetails = document.querySelector('#job-details');
+        const jobTitle = document.querySelector('#job-title');
+
+        viewMoreLink.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            // Fetch job information using AJAX
+            fetch(`/get_job_info/{{ job_id }}`)
+                .then(response => response.json())
+                .then(data => {
+
+                    // Add more job details as needed
+                    // Update the job details card/section with the fetched data
+                    jobTitle.textContent = data.title;
+                    document.getElementById('major').textContent = data.major;
+                    document.getElementById('skills').textContent = data.skills;
+                    document.getElementById('gpa').textContent = data.gpa;
+                    document.getElementById('working_hours').textContent = data.working_hours;
+                    document.getElementById('experience').textContent = data.experience;
+                    document.getElementById('positions_available').textContent = data.positions_available;
+                    document.getElementById('required_languages').textContent = data.required_languages;
+                    document.getElementById('work_location').textContent = data.work_location;
+
+                    // Show the job details card/section
+                    jobDetails.style.display = 'block';
+                    document.getElementById('overlay').style.display = 'block';
+
+
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    });
+    // Function to close the form
+    // Function to close the job details card
+    function closeJobDetails() {
+        // Hide the card and overlay
+        document.getElementById('job-details').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+    }
+
+    // Add click event listener to the overlay to close the card
+    document.getElementById('overlay').addEventListener('click', closeJobDetails);
+
+
+
+</script>

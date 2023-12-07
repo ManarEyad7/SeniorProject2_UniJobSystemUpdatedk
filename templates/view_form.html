@@ -1,0 +1,287 @@
+
+<!-- <p>Debug: {{ period }}</p> -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Student</title>
+
+    <!-- Website icon -->
+    <link rel="icon" href="{{url_for('static',filename='images/U.svg')}}">
+
+    <!-- Core CSS files -->
+    <link rel="stylesheet" href="{{url_for('static',filename='vendors/css/vendor.bundle.base.css')}}">
+
+    <!-- Page-specific plugin CSS -->
+    <link rel="stylesheet" href="{{url_for('static',filename='vendors/ti-icons/css/themify-icons.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='vendors/select2/select2.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='vendors/feather/feather.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/vertical-layout-light/style.css')}}">
+
+    <!-- JS files -->
+    <script type="text/javascript" src="{{url_for('static',filename='vendors/css/vendor.bundle.base.css')}}"></script>
+</head>
+
+<body>
+    <div class="container-scroller ">
+        <!-- partial:partials/_navbar.html -->
+        <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex ">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+                <div class="navbar-brand brand-logo mr-5"><img src="../../static/images/logo1d.svg" class="mr-2" alt="logo" />
+                </div>
+                <div class="navbar-brand brand-logo-mini"><img src="../../static/images/U.svg" alt="logo" /></div>
+            </div>
+            <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+
+                <div class="dropdown" style="margin-right: 2.5em; ">
+                    <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuSizeButton3"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Student
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuSizeButton3">
+                        <li> <p style="border-bottom: 1px solid;">{{ user[4] }}</p>
+                        </li>
+                        <a class="dropdown-item" href="{{url_for('login')}}">Log out</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+
+        <div class="container-fluid page-body-wrapper w-100 ">
+            <div class="content-wrapper" style="min-height: inherit;">
+                <div class="container">
+                    <div class="row mt-5">
+                        <div class="col-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body" style="margin: 1rem;">
+                                    <h4 class="card-title" style="font-size: 20px;">View Profile</h4>
+                                    <hr style="margin-bottom: 1.5rem;">
+                                    <form>
+                                        <div class="form-group" > <!-- Name -->
+                                            <label for="name" class="font-weight-bold" style="font-size: 15px;">Name:</label>
+                                            <input type="text" class="form-control custom-input" id="name" name="name" value="{{ form[3] }}" readonly>
+                                        </div>
+
+                                        <div class="form-group" ><!-- Phone Number -->
+                                            <label for="phoneNumber" class="font-weight-bold" style="font-size: 15px;">Phone Number:</label>
+                                            <input type="text" class="form-control custom-input" id="phoneNumber" name="phoneNumber" pattern="05[0-9]{8}"
+                                            title="Please enter only numbers" minlength="10" maxlength="10" value="{{ form[4] }}" readonly>
+                                        </div>
+
+                                        <div class="form-group"> <!-- Major -->
+                                            <label class="font-weight-bold" style="font-size: 15px;">Major:</label>
+                                            <input id="major" class="form-control custom-input" style="width: 100%;" name="major" 
+                                            value="{{ form[5] }} " readonly> </input>
+                                        </div>
+
+                                        <div class="form-group" > <!-- GPA -->
+                                            <label class="font-weight-bold" style="font-size: 15px;">GPA:</label>
+                                            <input id="gpa" class="form-control custom-input"  name="gpa" style="width: 100%;" 
+                                            value="{{ form[6] }} " readonly> </input>
+                                        </div>
+
+                                        <div class="form-group"> <!-- Skills -->
+                                            <label class="font-weight-bold" style="font-size: 15px;">Skills:</label>
+                                            <input id="skills" class="form-control custom-input" style="width: 100%;" name="skills" multiple="multiple" 
+                                            value="{{ form[7] }} " readonly> </input>                                               
+                                        </div>
+
+                                        <div class="form-group" > <!-- Languages -->
+                                            <label class="font-weight-bold" style="font-size: 15px;">Languages:</label>
+                                            <input id="languages" class="form-control custom-input" name="Languages" style="width: 100%;"  multiple="multiple"
+                                            value="{{ form[9] }} " readonly> </input>
+                                        </div>
+
+                                        <div class="form-group"> <!-- Experience -->
+                                            <label class="font-weight-bold" style="font-size: 15px;">Do You Have Previous Work Experience?</label>
+                                            <input id="experience" class="form-control custom-input" name="experience" style="width: 100%;"  
+                                            value="{{ form[8] }} " readonly> </input>                                                                                              
+                                        </div>
+                                    
+                                        <div class="form-group"> <!-- Availability -->
+                                            <label for="exampleInputHours" class="col-sm-3 col-form-label font-weight-bold" style="font-size: 15px;">Availability:</label>
+                                            <div class="availability-container">
+                                                <div class="day" style="margin-left: 20px;">
+                                                    <p class="font-weight-bold"> Please enter the number of periods available during the day and the corresponding times</p>
+                                                </div>
+                                                <hr>
+                                                {% if form %}
+                                                
+                                                <div class="day"> <!-- Sunday availability -->
+                                                    <label for="sunday" class="font-weight-bold">Sunday:</label>
+                                                    <div class="period" style="position: relative;">
+                                                        {% if form[11] !=0 %}
+                                                        {% set start_times_list = form[12].split(',') %}
+                                                        {% set end_times_list = form[13].split(',') %}
+                                                        {% set num_periods =  form[11] %}
+
+                                                        {% for index in range(num_periods) %}
+                                                        {% set start_time = start_times_list[index] %}
+                                                        {% set end_time = end_times_list[index] %}
+                                                        
+                                                        <label style="margin: 8px 5px 5px 15px;">Period {{ index + 1 }}:</label>
+                                                        <input type = "text" class="time-pickable start-time" style="width: 100%; margin: 5px 5px 5px 5px; borderRadius:4px; width: fit-content;" value="{{ start_time }} " readonly> </input>                                               
+                                                        <input type = "text" class="time-pickable start-time" style="width: 100%; margin: 5px 5px 5px 5px; borderRadius:4px; width: fit-content;" value="{{ end_time }} " readonly> </input>  
+                                                        <br>
+                                                        {% endfor %}
+                                                        {% else %}
+                                                        <p style="margin-left: 15px;">There are no periods available </p>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                                <hr>
+
+                                                <div class="day"> <!-- Monday availability -->
+                                                    <label for="monday" class="font-weight-bold">Monday:</label>
+                                                    <div id="monday-periods">
+                                                        {% if form[14] !=0 %}
+                                                        {% set start_times_list = form[15].split(',') %}
+                                                        {% set end_times_list = form[16].split(',') %}
+                                                        {% set num_periods =  form[14] %}
+
+                                                        {% for index in range(num_periods) %}
+                                                        {% set start_time = start_times_list[index] %}
+                                                        {% set end_time = end_times_list[index] %}
+                                                        <label style="margin: 8px 5px 5px 15px;">Period {{ index + 1 }}:</label>
+                                                        <input type = "text" class="time-pickable start-time" style="width: 100%; margin: 5px 5px 5px 5px; borderRadius:4px; width: fit-content;" value="{{ start_time }} " readonly> </input>                                               
+                                                        <input type = "text" class="time-pickable start-time" style="width: 100%; margin: 5px 5px 5px 5px; borderRadius:4px; width: fit-content;" value="{{ end_time }} " readonly> </input>  
+                                                        <br>
+                                                        {% endfor %}
+                                                        {% else %}
+                                                        <p style="margin-left: 15px;">There are no periods available </p>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                                <hr>
+
+                                                <div class="day"> <!-- Tuesday availability -->
+                                                    <label for="tuesday" class="font-weight-bold">Tuesday:</label>
+                                                    <div id="tuesday-periods">
+                                                        {% if form[17] !=0 %}
+                                                        {% set start_times_list = form[18].split(',') %}
+                                                        {% set end_times_list = form[19].split(',') %}
+                                                        {% set num_periods =  form[17] %}
+
+                                                        {% for index in range(num_periods) %}
+                                                        {% set start_time = start_times_list[index] %}
+                                                        {% set end_time = end_times_list[index] %}
+
+                                                        <label style="margin: 8px 5px 5px 15px;">Period {{ index + 1 }}:</label>
+                                                        <input type = "text" class="time-pickable start-time" style="width: 100%; margin: 5px 5px 5px 5px; borderRadius:4px; width: fit-content;" value="{{ start_time }} " readonly> </input>                                               
+                                                        <input type = "text" class="time-pickable start-time" style="width: 100%; margin: 5px 5px 5px 5px; borderRadius:4px; width: fit-content;" value="{{ end_time }} " readonly> </input>  
+                                                        <br>
+                                                        {% endfor %}
+                                                        {% else %}
+                                                        <p style="margin-left: 15px;">There are no periods available </p>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                                <hr>
+
+                                                <div class="day"> <!-- Wednesday availability -->
+                                                    <label for="wednesday" class="font-weight-bold">Wednesday:</label>
+                                                    <div id="wednesday-periods">
+                                                        {% if form[20] !=0 %}
+                                                        {% set start_times_list = form[21].split(',') %}
+                                                        {% set end_times_list = form[22].split(',') %}
+                                                        {% set num_periods =  form[20] %}
+
+                                                        {% for index in range(num_periods) %}
+                                                        {% set start_time = start_times_list[index] %}
+                                                        {% set end_time = end_times_list[index] %}
+                                                        <label style="margin: 8px 5px 5px 15px;">Period {{ index + 1 }}:</label>
+                                                        <input type = "text" class="time-pickable start-time" style="width: 100%; margin: 5px 5px 5px 5px; borderRadius:4px; width: fit-content;" value="{{ start_time }} " readonly> </input>                                               
+                                                        <input type = "text" class="time-pickable start-time" style="width: 100%; margin: 5px 5px 5px 5px; borderRadius:4px; width: fit-content;" value="{{ end_time }} " readonly> </input>  
+                                                        <br>
+                                                        {% endfor %}
+                                                        {% else %}
+                                                        <p style="margin-left: 15px;">There are no periods available </p>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                   
+                                                <div class="day"> <!-- Thursday availability -->
+                                                    <label for="thursday" class="font-weight-bold">thursday:</label>
+                                                    <div id="thursday-periods">
+                                                        {% if form[23] !=0 %}
+                                                        {% set start_times_list = form[24].split(',') %}
+                                                        {% set end_times_list = form[25].split(',') %}
+                                                        {% set num_periods =  form[23] %}
+
+                                                        {% for index in range(num_periods) %}
+                                                        {% set start_time = start_times_list[index] %}
+                                                        {% set end_time = end_times_list[index] %}
+                                                        <label style="margin: 8px 5px 5px 15px;">Period {{ index + 1 }}:</label>
+                                                        <input type = "text" class="time-pickable start-time" style="width: 100%; margin: 5px 5px 5px 5px; borderRadius:4px; width: fit-content;" value="{{ start_time }} " readonly> </input>                                               
+                                                        <input type = "text" class="time-pickable start-time" style="width: 100%; margin: 5px 5px 5px 5px; borderRadius:4px; width: fit-content;" value="{{ end_time }} " readonly> </input>  
+                                                        <br>
+                                                        {% endfor %}
+                                                        {% else %}
+                                                        <p style="margin-left: 15px;">There are no periods available </p>
+                                                        {% endif %}
+
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+                                            </div>
+                                            
+                                        </div>
+
+                                        <div class="form-group"> <!-- Duration -->
+                                            <label class="font-weight-bold" style="font-size: 15px;">Number of Weeks You Want To Work:</label>
+                                            <input type="number" class="form-control custom-input" style="width: 100%;" value="{{ form[26] }}" readonly>
+                                        </div>
+
+                                        <div class="form-group"> <!-- Work preference -->
+                                            <label class="font-weight-bold" style="font-size: 15px;">Work preference:</label>
+                                            <input class="form-control custom-input" name="work_preference" style="width: 100%;"  
+                                            value="{{ form[27] }} " readonly> </input>
+                                        </div>
+
+                                        <div class="form-group"> <!-- Download CV -->
+                                            <label class="font-weight-bold" style="font-size: 15px;">To download the PDF file, click the link below:</label><br>
+
+                                            {% if file %}
+                                            <a href="{{ url_for('download', file_id=file[0]) }}">Download File</a>
+                                            {% else %}
+                                            <h6 style="margin-left: 10px;">No file uploaded </h6>
+                                            {% endif %}
+                                        </div>
+
+                                        <div class="text-center"> 
+                                            <a href="{{ url_for('student') }}" class="btn btn-light" style="font-size: 15px;">Cancel</a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</body>
+<!-- Core JS files -->
+<script type="text/javascript" src="{{url_for('static',filename='vendors/js/vendor.bundle.base.js')}}"></script>
+
+
+<!-- Page-specific plugin JS -->
+<script src="../../static/typeahead.js/typeahead.bundle.min.js"></script>
+<script src="../../static/vendors/select2/select2.min.js"></script>
+
+<!-- Custom JS for this page -->
+<script src="../../static/js/file-upload.js"></script>
+<script src="../../static/js/typeahead.js"></script>
+<script src="../../static/js/select2.js"></script>
+
+</html>
+

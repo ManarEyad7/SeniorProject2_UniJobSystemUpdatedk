@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Student</title>
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" href="{{url_for('static',filename='vendors/ti-icons/css/themify-icons.css')}}">
+
+    <!-- inject:css -->
+    <link rel="stylesheet" href="{{url_for('static',filename='css/vertical-layout-light/style.css')}}">
+    <!-- endinject -->
+
+    <script type="text/javascript" src="{{url_for('static',filename='vendors/css/vendor.bundle.base.css')}}"></script>
+
+    <!-- Website icon -->
+    <link rel="icon" href="{{url_for('static',filename='images/U.svg')}}">
+    <style>
+        .block-d {
+            justify-content: space-between;
+            display: flex;
+        }
+
+        #findJob-button {
+
+            margin: 1.5rem;
+
+
+        }
+
+        #viewForm-button {
+            margin: 1.5rem 0.5rem
+        }
+
+        #updateForm-button {
+            margin: 1.5rem 0.5rem
+        }
+
+        #deleteForm-button {
+            margin: 1.5rem 0.5rem
+        }
+
+
+        @media (max-width: 600px) {
+
+            #findJob-button {
+                width: 100%;
+                justify-items: center;
+                margin: 1.5rem 0;
+                /* Add margin to separate it from other buttons and align it to the center */
+                display: block;
+                /* Set to block to ensure full width */
+                padding: 0%;
+                margin: 0.5rem 0rem;
+            }
+
+            #viewForm-button {
+                width: 100%;
+                justify-items: center;
+                margin: 1.5rem 0;
+                /* Add margin to separate it from other buttons and align it to the center */
+                display: block;
+                /* Set to block to ensure full width */
+                padding: 0%;
+                margin: 0.5rem 0rem;
+            }
+
+            #updateForm-button {
+                width: 100%;
+                justify-items: center;
+                margin: 1.5rem 0;
+                /* Add margin to separate it from other buttons and align it to the center */
+                display: block;
+                /* Set to block to ensure full width */
+                padding: 0%;
+                margin: 0.5rem 0rem;
+            }
+
+            #deleteForm-button {
+                width: 100%;
+                justify-items: center;
+                margin: 1.5rem 0;
+                /* Add margin to separate it from other buttons and align it to the center */
+                display: block;
+                /* Set to block to ensure full width */
+                padding: 0%;
+                margin: 0.5rem 0rem;
+            }
+
+
+
+            .block-d {
+                display: block;
+                justify-content: center;
+            }
+
+
+
+
+        }
+    </style>
+
+    <!-- For table 1 -->
+    <style>
+        .timeline-item {
+            position: relative;
+            margin-bottom: 50px;
+        }
+
+        .timeline-date {
+            position: absolute;
+            top: -22px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #000;
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .timeline-content {
+            padding: 15px;
+            background-color: #f2f2f2;
+            border-radius: 4px;
+        }
+
+        .timeline-table {
+            width: 80%;
+            border-collapse: collapse;
+            margin: auto;
+        }
+
+        .timeline-table th,
+        .timeline-table td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .timeline-table th {
+            background-color: rgba(75, 73, 172, 0.135);
+            padding: 15px;
+            /*#f2f2f2*/
+        }
+    </style>
+
+    <!-- For table 2 -->
+    <style>
+        .highlight {
+            background-color: green;
+        }
+
+        table {
+            margin: auto;
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f987;
+            width: 90%;
+            border-collapse: collapse;
+        }
+
+        th {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+            border-right: 1px solid #ddd;
+            ;
+            border-left: 1px solid #ddd;
+        }
+
+        td {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid #dddddd50;
+            border-right: 1px solid #ddd;
+            border-left: 1px solid #ddd;
+
+        }
+
+        th {
+            background-color: rgba(91, 89, 165, 0.071);
+            width: 15%;
+        }
+
+        .day {
+            position: relative;
+            width: 0px;
+        }
+
+
+        .time {
+            color: #686767;
+        }
+
+        .event {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .description {
+            color: #666;
+        }
+    </style>
+
+    <!-- this style for notifications table -->
+    <title>Table with Buttons</title>
+    <style>
+        .table-container {
+            width: 100%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .button-container button {
+            margin-left: 5px;
+            padding: 8px 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .button-container button.confirm {
+            background-color: #26bb02;
+        }
+
+        .button-container button.reject {
+            background-color: #f44336;
+        }
+    </style>
+
+    <style>
+        table {
+
+            border-collapse: collapse;
+
+        }
+
+        th,
+        td {
+
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+
+        }
+
+        .job-period {
+
+            background-color: green;
+            opacity: 0.5;
+
+        }
+
+        .student-period {
+
+            background-color: red;
+            opacity: 0.5;
+
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div class="container-scroller ">
+        <!-- partial:partials/_navbar.html -->
+        <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+                <div class="navbar-brand brand-logo mr-5"><img src="static/images/logo1d.svg" class="mr-2" alt="logo" />
+                </div>
+                <div class="navbar-brand brand-logo-mini"><img src="static/images/U.svg" alt="logo" /></div>
+            </div>
+            <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+
+                <div class="dropdown" style="margin-right: 2.5em; ">
+                    <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuSizeButton3"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Student
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuSizeButton3">
+                        <li>
+                            <p style="border-bottom: 1px solid;"> {{ user[4] }}</p>
+                        </li>
+                        <a class="dropdown-item" href="{{url_for('login')}}">Log out</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container-fluid page-body-wrapper w-100 ">
+            <div class="content-wrapper" style="min-height: inherit;">
+                <div class="container">
+                    <div class="row mt-5">
+                        <div class="col-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class=" block-d">
+
+                                        <div>
+                                            <h4 class="font-weight-bold left-margin"
+                                                style="margin-top: 1.5rem; font-size: 27px;">Welcome</h4>
+                                            <h4 class="left-margin " style="margin-bottom: 1.5rem; font-size: 21px;">{{
+                                                user[3] }} </h4>
+                                        </div>
+                                        <form class="j" action="{{ url_for('post_job') }}">
+                                            {% if seekerForms %}
+                                            {% for form in seekerForms %}
+                                            {% if form[1] == 1 %}
+                                            <button id="findJob-button" class="btn btn-inverse-primary btn-fw "
+                                                style="height: 50px;  display: none;"
+                                                onclick="location.href = '/find_job';" type="button"
+                                                aria-expanded="true">Seek job </button>
+                                            <button id="viewForm-button" class="btn btn-inverse-primary btn-fw "
+                                                style="height: 50px;  display: inline-block;"
+                                                onclick="location.href = '/view_form/{{ form[0] }}';" type="button"
+                                                aria-expanded="true">View Profile</button>
+                                            <button id="updateForm-button" class="btn btn-inverse-primary btn-fw "
+                                                style="height: 50px;  display: inline-block;"
+                                                onclick="location.href = '/update_find_job/{{ form[0] }}';"
+                                                type="button" aria-expanded="true">Update Profile</button>
+                                            <button id="deleteForm-button" class="btn btn-inverse-primary btn-fw "
+                                                style="height: 50px;  display: inline-block;"
+                                                onclick="location.href = '/delete_form/{{ form[0] }}/{{ form[2] }}';"
+                                                type="button" aria-expanded="true">Delete Profile</button>
+                                            {% endif %}
+                                            {% endfor %}
+                                            {% else %}
+                                            <button id="findJob-button" class="btn btn-inverse-primary btn-fw "
+                                                style="height: 50px;  display: inline-block;"
+                                                onclick="location.href = '/find_job';" type="button"
+                                                aria-expanded="true">Seek job </button>
+                                            <button id="viewForm-button" class="btn btn-inverse-primary btn-fw "
+                                                style="height: 50px;  display: none;" type="button"
+                                                aria-expanded="true">View Profile</button>
+                                            <button id="updateForm-button" class="btn btn-inverse-primary btn-fw "
+                                                style="height: 50px;  display: none;" type="button"
+                                                aria-expanded="true">Update Profile</button>
+                                            <button id="deleteForm-button" class="btn btn-inverse-primary btn-fw "
+                                                style="height: 50px;  display: none;" type="button"
+                                                aria-expanded="true">Delete Profile</button>
+                                            {% endif %}
+
+                                        </form>
+
+                                    </div>
+                                    <hr>
+                                    <h4 class="font-weight-bold left-margin"
+                                        style="margin-top: 1.5rem; margin-bottom: 1.5rem; font-size: 20px;">
+                                        Notifications </h4>
+                                    <div class="notification-content text-center">
+                                        <div class="notification-content text-center">
+                                            {% if seekerForms %}
+                                            {% if notifications %}
+                                            You have been selected for the below jobs<br>
+
+                                            <div class="table-container">
+                                                <table>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>job title</th>
+                                                            <th>duration of the job</th>
+                                                            <th>job location</th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        {% for notification in notifications %}
+                                                        <tr>
+                                                            <td>{{notification[3]}}</td>
+                                                            <td>{{notification[5]}} week</td>
+                                                            <td>{{notification[6]}}</td>
+
+                                                            <form method="GET"
+                                                                action="{{ url_for('confirm_notification', student_id=user[0], notify_id=notification[0]) }}">
+                                                                <td class="button-container">
+                                                                    <button type="submit"
+                                                                        class="confirm">Confirm</button>
+                                                                    <form method="GET" action="{{ url_for('reject_notification', student_id=user[0], notify_id=notification[0]) }}"> 
+                                                                        <button type="submit" class="reject">reject</button>
+                                                                    </form>
+                                                                </td>
+                                                            </form>
+
+                                                        </tr>
+                                                        {% endfor %}
+
+
+                                                        <!-- Add more rows as needed -->
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+
+                                            <div id="flashMessage"></div>
+                                            {% else %}
+                                            No notifications at the moment.<br>
+                                            {% endif %}
+
+
+                                            {% else %}
+                                            No notifications at the moment.<br>
+                                            If you are seeking part-time work, press the "Seek Job" button to explore
+                                            opportunities.
+                                            {% endif %}
+                                        </div>
+                                    </div>
+
+                                    <hr>
+
+                                    <h4 class="font-weight-bold left-margin"
+                                        style="margin-top: 1.5rem; margin-bottom: 1.5rem; font-size: 20px;"> Schedule
+                                    </h4>
+
+
+                                    <div class="schedule-content">
+<!--<
+                                        <table class="timeline-table">
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Sunday</th>
+                                                    <th>Monday</th>
+                                                    <th>Tuesday</th>
+                                                    <th>Wednesday</th>
+                                                    <th>Thursday</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                <tr>
+                                                    <th>08:00 am</th>
+
+                                                    <td class="timeline-item">1</td>
+                                                    <td class="timeline-item">2</td>
+                                                    <td class="timeline-item">3</td>
+                                                    <td class="timeline-item">4</td>
+                                                    <td class="timeline-item">5</td>
+
+
+                                                </tr>
+                                                <tr>
+                                                    <th>09:00 am</th>
+
+                                                    <td class="timeline-item"></td>
+                                                    <td class="timeline-item"></td>
+                                                    <td class="timeline-item"></td>
+                                                    <td class="timeline-item"></td>
+                                                    <td class="timeline-item"></td>
+
+                                                </tr>
+                                                <tr>
+                                                    <th>10:00 am</th>
+                                                    <td class="timeline-item"></td>
+                                                    <td class="timeline-item"></td>
+                                                    <td class="timeline-item"></td>
+                                                    <td class="timeline-item"></td>
+                                                    <td class="timeline-item"></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <th>11:00 am</th>
+                                                    <td class="timeline-item"></td>
+                                                    <td class="timeline-item"></td>
+                                                    <td class="timeline-item"></td>
+                                                    <td class="timeline-item"></td>
+                                                    <td class="timeline-item"></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>12:00 pm</th>
+                                                    <td class="timeline-item"></td>
+                                                    <td class="timeline-item"></td>
+                                                    <td class="timeline-item"></td>
+                                                    <td class="timeline-item"></td>
+                                                    <td class="timeline-item"></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>01:00 pm</th>
+                                                    <td class="timeline-item"></td>
+                                                    <td class="timeline-item"></td>
+                                                    <td class="timeline-item"></td>
+                                                    <td class="timeline-item"></td>
+                                                    <td class="timeline-item"></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>02:00 pm</th>
+                                                    <td class="timeline-item"></td>
+                                                    <td class="timeline-item"></td>
+                                                    <td class="timeline-item"></td>
+                                                    <td class="timeline-item"></td>
+                                                    <td class="timeline-item"></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>03:00 pm</th>
+                                                    <td class="timeline-item"></td>
+                                                    <td class="timeline-item"></td>
+                                                    <td class="timeline-item"></td>
+                                                    <td class="timeline-item"></td>
+                                                    <td class="timeline-item"></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>04:00 pm</th>
+                                                    <td class="timeline-item"></td>
+                                                    <td class="timeline-item"></td>
+                                                    <td class="timeline-item"></td>
+                                                    <td class="timeline-item"></td>
+                                                    <td class="timeline-item"></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>05:00 pm</th>
+                                                    <td class="timeline-item"></td>
+                                                    <td class="timeline-item"></td>
+                                                    <td class="timeline-item"></td>
+                                                    <td class="timeline-item"></td>
+                                                    <td class="timeline-item"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+>-->
+<!-- 
+    
+                                        {% if schedule %}
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Time</th>
+                                                    <th>Sunday</th>
+                                                    <th>Monday</th>
+                                                    <th>Tuesday</th>
+                                                    <th>Wednesday</th>
+                                                    <th>Thursday </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for schedule1 in schedule %}
+                                                <tr> 
+                                                    <td class="time">8:00</td>
+                                                    {% for day in range(5) %}
+                                                    <td class =" {% if day == 'Tuesday' and time == '10:00 am' %} highlight {% endif %}">
+
+                                                    </td>
+                                                    
+                                                    {% endfor %}
+                                                </tr>
+                                                {% endfor %}
+                                        {% endif %}
+
+-->
+
+<!-- 
+                                    {% if schedule %}
+                                    
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Time</th>
+                                                    <th>Sunday</th>
+                                                    <th>Monday</th>
+                                                    <th>Tuesday</th>
+                                                    <th>Wednesday</th>
+                                                    <th>Thursday</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for time_slot in ['08:00 AM', '09:00 AM','10:00 AM','11:00 AM','12:00 PM','01:00 PM','02:00 PM','03:00 PM','04:00 PM'] %}
+                                                    <tr>
+                                                        <td class="time">{{ time_slot }}</td>
+                                                        {% for day in ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'] %}
+                                                            <td class="{% for schedule1 in schedule %}{% if schedule1[1] == day and schedule1[2] == time_slot %}highlight{% endif %}{% endfor %}">
+                                                                {% for schedule1 in schedule %}
+                                                                    {% if schedule1[1] == day and schedule1[2] == time_slot %}
+                                                                        {{ schedule1[6] }}<br>
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            </td>
+                                                        {% endfor %}
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    {% else %}
+                                        <p>No schedule data available.</p>
+                                    {% endif %}
+-->
+
+                                    {% if schedule %}
+                                    
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Time</th>
+                                                <th>Sunday</th>
+                                                <th>Monday</th>
+                                                <th>Tuesday</th>
+                                                <th>Wednesday</th>
+                                                <th>Thursday</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for time_slot in ['08:00 AM', '09:00 AM', '10:00 AM', '11:00 AM', '12:00 PM', '01:00 PM', '02:00 PM', '03:00 PM', '04:00 PM'] %}
+                                                {% set time_slot_parts = time_slot.split(':') %}
+                                                {% set time_slot_hour = time_slot_parts[0] | int %}
+                                                {% set time_slot_minute = time_slot_parts[1][:2] | int %}
+                                                {% set time_slot_ampm = time_slot[-2:] %}
+                                                <tr>
+                                                    <td class="time">{{ time_slot }}</td>
+                                                    {% for day in ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'] %}
+                                                        <td class="{% for schedule1 in schedule %}
+                                                            {% set start_time_parts = schedule1[2].split(':') %}
+                                                            {% set end_time_parts = schedule1[3].split(':') %}
+                                                            {% set start_hour = start_time_parts[0] | int %}
+                                                            {% set start_minute = start_time_parts[1][:2] | int %}
+                                                            {% set start_ampm = schedule1[2][-2:] %}
+                                                            {% set end_hour = end_time_parts[0] | int %}
+                                                            {% set end_minute = end_time_parts[1][:2] | int %}
+                                                            {% set end_ampm = schedule1[3][-2:] %}
+                                                            {% if schedule1[1] == day and ((time_slot_hour >= start_hour and time_slot_hour < end_hour) or (time_slot_hour <= end_hour and end_minute !=0) or (time_slot_hour >= start_hour and start_ampm=='AM' and end_ampm=='PM' and time_slot_hour > end_hour) or (time_slot_hour < start_hour and time_slot_hour < end_hour)) %}
+                                                                {% if (time_slot_hour == start_hour and time_slot_minute >= start_minute and start_ampm == time_slot_ampm) or
+                                                                    (time_slot_hour == end_hour and time_slot_minute <= end_minute and end_ampm == time_slot_ampm) or
+                                                                    (time_slot_hour > start_hour and time_slot_hour < end_hour) or
+                                                                    (time_slot_hour >= start_hour and time_slot_hour > end_hour and start_ampm=='AM'  and end_ampm=='PM') %}
+                                                                    highlight
+                                                                {% endif %}
+                                                            {% endif %}
+                                                        {% endfor %}">
+                                                            {% for schedule1 in schedule %}
+                                                            {% set start_time_parts = schedule1[2].split(':') %}
+                                                            {% set end_time_parts = schedule1[3].split(':') %}
+                                                            {% set start_hour = start_time_parts[0] | int %}
+                                                            {% set start_minute = start_time_parts[1][:2] | int %}
+                                                            {% set start_ampm = schedule1[2][-2:] %}
+                                                            {% set end_hour = end_time_parts[0] | int %}
+                                                            {% set end_minute = end_time_parts[1][:2] | int %}
+                                                            {% set end_ampm = schedule1[3][-2:] %}
+                                                            {% if schedule1[1] == day and ((time_slot_hour >= start_hour and time_slot_hour < end_hour ) or (time_slot_hour <= end_hour and end_minute !=0) or (time_slot_hour >= start_hour and start_ampm=='AM' and end_ampm=='PM' and time_slot_hour > end_hour) or (time_slot_hour < start_hour and time_slot_hour < end_hour)) %}
+                                                            {% if (time_slot_hour == start_hour and time_slot_minute >= start_minute and start_ampm == time_slot_ampm) or
+                                                                (time_slot_hour == end_hour and time_slot_minute <= end_minute and end_ampm == time_slot_ampm) or
+                                                                (time_slot_hour > start_hour and time_slot_hour < end_hour) or
+                                                                (time_slot_hour >= start_hour and time_slot_hour > end_hour and start_ampm=='AM'  and end_ampm=='PM') %}
+                                                                    <p> {{ schedule1[6] }} </p>  <p> {{ schedule1[2] }} {{ schedule1[3] }} </p>
+                                                                {% endif %}
+                                                            {% endif %}
+                                                            {% endfor %}
+
+                                                        </td>
+                                                    {% endfor %}
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                {% else %}
+                                    <p>No schedule data available.</p>
+                                {% endif %}
+
+                                
+                                
+                                        <hr>
+
+                                        <!-- Table 2 
+                                        {% if schedule %}
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Time</th>
+                                                    <th>Sunday</th>
+                                                    <th>Monday</th>
+                                                    <th>Tuesday</th>
+                                                    <th>Wednesday</th>
+                                                    <th>Thursday </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for schedule1 in schedule  %} 
+                                                <tr>
+                                                    <td class="time">08:00 am</td>
+                                                    <td class="{% if schedule1[1] == 'Sunday' and schedule1[2] == '08:00 AM' %}highlight{% endif %}">
+                                                        {% if schedule1[1] == 'Sunday' and schedule1[2] == '08:00 AM' %} 
+                                                            {{ schedule1[6] }}
+                                                        {% endif %}
+                                                    </td> 
+                                                    <td class="{% if schedule1[1] == 'Monday' and schedule1[2] == '08:00 AM' %}highlight{% endif %}">
+                                                        {% if schedule1[1] == 'Monday' and schedule1[2] == '08:00 AM' %}
+                                                            {{ schedule1[6] }}
+                                                        {% endif %}
+                                                    </td> 
+                                                    <td class="{% if schedule1[1] == 'Tuesday' and schedule1[2] == '08:00 AM' %}highlight{% endif %}"></td>
+                                                        {% if schedule1[1] == 'Tuesday' and schedule1[2] == '08:00 AM' %} 
+                                                            {{ schedule1[6] }}
+                                                        {% endif %}
+                                                    </td>
+                                                    <td class="{% if schedule1[1] == 'Wednesday' and schedule1[2] == '08:00 AM' %}highlight{% endif %}">
+                                                        {% if schedule1[1] == 'Wednesday' and schedule1[2] == '08:00 AM' %} 
+                                                            {{ schedule1[6] }}
+                                                        {% endif %}
+                                                    </td>
+                                                    <td class="{% if schedule1[1] == 'Thursday' and schedule1[2] == '08:00 AM' %}highlight{% endif %}"></td>
+                                                        {% if schedule1[1] == 'Thursday' and schedule1[2] == '08:00 AM' %} 
+                                                            {{ schedule1[6] }}
+                                                        {% endif %}
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                    <td class="time">09:00 am</td>
+                                                    <td class="{% if schedule1[1] == 'Sunday' and schedule1[2] == '09:00 AM' %}highlight{% endif %}">
+                                                        {% if schedule1[1] == 'Sunday' and schedule1[2] == '09:00 AM' %} 
+                                                            {{ schedule1[6] }}
+                                                        {% endif %}
+                                                    </td> 
+                                                    <td class="{% if schedule1[1] == 'Monday' and schedule1[2] == '09:00 AM' %}highlight{% endif %}">
+                                                        {% if schedule1[1] == 'Monday' and schedule1[2] == '09:00 AM' %}
+                                                            {{ schedule1[6] }}
+                                                        {% endif %}
+                                                    </td> 
+                                                    <td class="{% if schedule1[1] == 'Tuesday' and schedule1[2] == '09:00 AM' %}highlight{% endif %}"></td>
+                                                        {% if schedule1[1] == 'Tuesday' and schedule1[2] == '09:00 AM' %} 
+                                                            {{ schedule1[6] }}
+                                                        {% endif %}
+                                                    </td>
+                                                    <td class="{% if schedule1[1] == 'Wednesday' and schedule1[2] == '09:00 AM' %}highlight{% endif %}">
+                                                        {% if schedule1[1] == 'Wednesday' and schedule1[2] == '09:00 AM' %} 
+                                                            {{ schedule1[6] }}
+                                                        {% endif %}
+                                                    </td>
+                                                    <td class="{% if schedule1[1] == 'Thursday' and schedule1[2] == '09:00 AM' %}highlight{% endif %}"></td>
+                                                        {% if schedule1[1] == 'Thursday' and schedule1[2] == '09:00 AM' %} 
+                                                            {{ schedule1[6] }}
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                                <tr> 
+                                                    
+                                                    <td class="time">10:00 am</td>
+                                                    <td>1</td>
+                                                    <td></td>                                                    
+                                                    <td class="{% if schedule1[1] == 'Tuesday' and schedule1[2] == '10:00 AM' %}highlight{% endif %}"></td>
+                                                    {% if schedule1[1] == 'Tuesday' and schedule1[2] == '10:00 AM' %} 
+                                                        {{ schedule1[6] }}
+                                                    {% endif %}
+                                                    </td> 
+                                                    <td></td>
+                                                    <td class="{% if schedule1[1] == 'Thursday' and schedule1[2] == '10:00 AM' %}highlight{% endif %}"></td>
+                                                        {% if schedule1[1] == 'Thursday' and schedule1[2] == '10:00 AM' %} 
+                                                            {{ schedule1[6] }}
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="time">11:00 am</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td class="{% if schedule1[1] == 'Tuesday' and schedule1[2] == '11:00 AM' %}highlight{% endif %}"></td>
+                                                        {% if schedule1[1] == 'Tuesday' and schedule1[2] == '11:00 AM' %} 
+                                                            {{ schedule1[6] }}
+                                                        {% endif %}
+                                                    </td>
+                                                    <td></td>
+                                                    <td class="{% if schedule1[1] == 'Thursday' and schedule1[2] == '11:00 AM' %}highlight{% endif %}"></td>
+                                                        {% if schedule1[1] == 'Thursday' and schedule1[2] == '11:00 AM' %} 
+                                                            {{ schedule1[6] }}
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="time">12:00 pm</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td class="{% if schedule1[1] == 'Thursday' and schedule1[2] == '12:00 PM' %}highlight{% endif %}"></td>
+                                                        {% if schedule1[1] == 'Thursday' and schedule1[2] == '12:00 PM' %} 
+                                                            {{ schedule1[6] }}
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="time">01:00 pm</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="time">02:00 pm</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="time">03:00 pm</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="time">04:00 pm</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="time">05:00 pm</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                {% endfor %} 
+                                            </tbody>
+                                        </table>
+                                        {% endif %}
+                                        -->
+                                    </div>
+                                    <hr>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <!-- 
+
+        <div class="container-fluid page-body-wrapper w-100 ">
+            <div class="content-wrapper" style="min-height: inherit;">
+                <div class="container">
+                    <div class="row mt-5">
+
+                        <div class="col-lg-6" style="float:none;margin:auto;">
+                            <div class="left-sidebar">
+                                <div class="sidenav horizontal_center ">
+                                    <h3 class="font-weight-bold left-margin" style="margin-top: 3.5rem;">Welcome</h3>
+                                    {% for row in rows %}
+                                    <h3 class="left-margin bordered-text" style="margin-bottom: 3rem;">{{row["name"]}}
+                                    </h3>
+                                    {% endfor %}
+                                    <button class="secondarybtn left-margin" type="button" id="seekForJob"
+                                        onclick="showReview()" style="margin-bottom: 2rem;">
+                                        Home
+                                    </button>
+                                    <button class="secondarybtn left-margin" type="button" id="seekForJob"
+                                        onclick="location.href = '/find_job';" style="margin-bottom: 2rem;">
+                                        Find Jobs
+                                    </button>
+                                    <button class="secondarybtn left-margin" type="button" id="seekForJob"
+                                        onclick="showSchedule()" style="margin-bottom: 3.5rem;">
+                                        View Schedule
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6" style="float:none;margin:auto;">
+                            <div class="right-content text-center">
+                                <div class="container ">
+                                    <div class="row mt-5">
+                                        <div class="col-12 col-xl-12 mb-4 mb-xl-0">
+
+                                            <div class="form-content text-left">
+                                                <h3 class="text-center font-weight-bold">Seek For Jobs</h3><br>
+                                                <form>
+                                                    <label class="font-weight-bold" for="name">Name:</label>
+                                                    <input class="text-center" type="text" id="name" name="name"
+                                                        value="{% for row in rows %}{{ row['name'] }}{% endfor %}"
+                                                        readonly>
+
+                                                    <label class="font-weight-bold" for="email">Email:</label>
+                                                    <input class="text-center" type="email" id="email" name="email"
+                                                        value="{% for row in rows %}{{row['email']}} {% endfor %}"
+                                                        readonly> <br><br>
+
+                                                    <label class="font-weight-bold" for="name">Phone Number:</label>
+                                                    <input class="text-center" type="text" id="phoneNumber"
+                                                        name="phoneNumber" pattern="[0-9]+"
+                                                        title="Please enter only numbers" minlength="10" maxlength="10"
+                                                        required> <br><br>
+
+
+                                                    <label class="font-weight-bold" for="name">Major:</label>
+                                                    <select id="major" name="major" class="select-button">
+                                                        <option value="">Select a major</option>
+                                                        <option value="ComputerScience">Computer Science</option>
+                                                        <option value="ArtificialIntelligence">Artificial Intelligence
+                                                        </option>
+                                                        <option value="DataScience">Data Science</option>
+                                                        <option value="CyberSecurity">Cyber Security</option>
+                                                        <option value="SoftwareEngineering">Software Engineering
+                                                        </option>
+                                                        <option value="NetworkEngineering">Network Engineering</option>
+
+
+                                                    </select><br><br>
+
+
+                                                    <label class="font-weight-bold" for="Skills">Skills:</label>
+                                                    <div class="dropdown2">
+                                                        <button disabled>Select Skills</button>
+                                                        <div class="dropdown-content2">
+                                                            <label><input type="checkbox" value="Programming">
+                                                                Programming</label><br>
+                                                            <label><input type="checkbox" value="teamwork">
+                                                                teamwork</label><br>
+                                                            <label><input type="checkbox" value="data science"> data
+                                                                science</label><br>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="text-center" style="margin-top: 30px;">
+                                                        <input type="submit" value="Submit">
+                                                    </div>
+                                                </form>
+                                            </div>
+
+
+                                            <div class="review-content text-center">
+                                                <p>There are no current activities.</p>
+                                            </div>
+
+
+                                            <div class="schedule-content text-center">
+                                                <h2>Schedule Content</h2>
+                                                <p>Sample scheduling table goes here.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>-->
+    </div>
+
+    <!-- plugins:js -->
+    <script type="text/javascript" src="{{url_for('static',filename='vendors/js/vendor.bundle.base.js')}}"></script>
+    <!-- endinject -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script>
+        function delete_flash(flash) {
+            $(flash).parent().remove()
+        }
+    </script>
+
+    <!-- 
+    <script>
+        var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'];
+        var student_schedule = {};  // Replace with actual student schedule data
+        var job_schedule = {};      // Replace with actual job schedule data
+
+        var html_table = '<table>';
+        html_table += '<thead><tr><th></th>';
+
+        for (var i = 0; i < days.length; i++) {
+            html_table += '<th>' + days[i] + '</th>';
+        }
+
+        html_table += '</tr></thead><tbody>';
+
+        for (var time = 8; time < 18; time++) {  // Assuming 8 AM to 5 PM schedule
+            var hour = ('0' + time).slice(-2) + ':00';  // Format the hour as 'HH:00'
+
+            // Start a new row for each hour
+            html_table += '<tr><th>' + hour + '</th>';
+
+            for (var j = 0; j < days.length; j++) {
+                var day = days[j];
+                var student_slots = student_schedule[day];
+                var job_slots = job_schedule[day];
+                var cell_class = 'timeline-item';
+
+                for (var k = 0; k < job_slots.length; k++) {
+                    var job_slot = job_slots[k];
+                    var job_start = job_slot.split(' - ')[0];
+                    var job_end = job_slot.split(' - ')[1];
+                    var job_start_hour = parseInt(job_start.split(':')[0]);
+                    var job_end_hour = parseInt(job_end.split(':')[0]);
+
+                    if (time >= job_start_hour && time < job_end_hour) {
+                        cell_class = 'job-period';
+                    }
+                }
+
+                for (var l = 0; l < student_slots.length; l++) {
+                    var student_slot = student_slots[l];
+                    var student_start = student_slot.split(' - ')[0];
+                    var student_end = student_slot.split(' - ')[1];
+                    var student_start_hour = parseInt(student_start.split(':')[0]);
+                    var student_end_hour = parseInt(student_end.split(':')[0]);
+
+                    if (time >= student_start_hour && time < student_end_hour) {
+                        cell_class = 'student-period';
+                    }
+                }
+
+                html_table += '<td class="' + cell_class + '"></td>';
+            }
+
+            html_table += '</tr>';
+        }
+
+        html_table += '</tbody></table>';
+
+        // Set the contents of the table-container element to the generated html_table
+        document.getElementById('table-container').innerHTML = html_table;
+    </script>
+    -->
+
+  
+    <script>
+        var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'];
+
+
+        // Make an HTTP request to the Flask server's endpoint to retrieve the schedules
+        fetch('/schedules', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+
+        })
+            .then(response => response.json())
+            .then(data => {
+                var student_schedule = data.student_schedule;
+                var job_schedule = data.job_schedule;
+                var cell_class2 = 'timeline-table';
+
+                var html_table = '<table class="' + cell_class2 + '">';
+                html_table += '<thead><tr><th></th>';
+
+                for (var i = 0; i < days.length; i++) {
+                    html_table += '<th>' + days[i] + '</th>';
+                }
+
+                html_table += '</tr></thead><tbody>';
+
+                for (var time = 8; time < 18; time++) {  // Assuming 8 AM to 5 PM schedule
+                    var hour = ('0' + time).slice(-2) + ':00';  // Format the hour as 'HH:00'
+
+                    // Start a new row for each hour
+                    html_table += '<tr><th>' + hour + '</th>';
+
+                    for (var j = 0; j < days.length; j++) {
+                        var day = days[j];
+                        var student_slots = student_schedule[day];
+                        var job_slots = job_schedule[day];
+                        var cell_class = 'timeline-item';
+
+                        for (var k = 0; k < job_slots.length; k++) {
+                            var job_slot = job_slots[k];
+                            var job_start = job_slot.split(' - ')[0];
+                            var job_end = job_slot.split(' - ')[1];
+                            var job_start_hour = parseInt(job_start.split(':')[0]);
+                            var job_end_hour = parseInt(job_end.split(':')[0]);
+
+                            if (time >= job_start_hour && time < job_end_hour) {
+                                cell_class = 'job-period';
+                            }
+                        }
+
+                        for (var l = 0; l < student_slots.length; l++) {
+                            var student_slot = student_slots[l];
+                            var student_start = student_slot.split(' - ')[0];
+                            var student_end = student_slot.split(' - ')[1];
+                            var student_start_hour = parseInt(student_start.split(':')[0]);
+                            var student_end_hour = parseInt(student_end.split(':')[0]);
+
+                            if (time >= student_start_hour && time < student_end_hour) {
+                                cell_class = 'student-period';
+                            }
+                        }
+
+                        html_table += '<td class="' + cell_class + '"></td>';
+                    }
+
+                    html_table += '</tr>';
+                }
+
+                html_table += '</tbody></table>';
+
+                // Set the contents of the table-container element to the generated html_table
+
+                document.getElementById('table-container').innerHTML = html_table;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    </script>
+
+
+
+
+</body>
+
+
+
+<script>
+    /*   // Function to show the form content
+       function showForm() {
+           var formContent = document.querySelector(".form-content");
+           var reviewContent = document.querySelector(".review-content");
+           var scheduleContent = document.querySelector(".schedule-content");
+   
+           // Display the form content and hide the review and schedule content
+           formContent.style.display = "block";
+           reviewContent.style.display = "none";
+           scheduleContent.style.display = "none";
+       }
+   
+       // Function to show the review content
+       function showReview() {
+           var formContent = document.querySelector(".form-content");
+           var reviewContent = document.querySelector(".review-content");
+           var scheduleContent = document.querySelector(".schedule-content");
+   
+           // Display the review content and hide the form and schedule content
+           formContent.style.display = "none";
+           reviewContent.style.display = "block";
+           scheduleContent.style.display = "none";
+       }
+   
+       // Function to show the schedule content
+       function showSchedule() {
+           var formContent = document.querySelector(".form-content");
+           var reviewContent = document.querySelector(".review-content");
+           var scheduleContent = document.querySelector(".schedule-content");
+   
+           // Display the schedule content and hide the form and review content
+           formContent.style.display = "none";
+           reviewContent.style.display = "none";
+           scheduleContent.style.display = "block";
+       }
+   
+   */
+
+    // Get the button and dropdown content elements
+    var button = document.querySelector('.dropdown2 button');
+    var dropdownContent = document.querySelector('.dropdown-content2');
+
+    // Event listener to update selected options
+    dropdownContent.addEventListener('change', function () {
+        var selectedOptions = Array.from(dropdownContent.querySelectorAll('input[type="checkbox"]:checked'))
+            .map(function (checkbox) {
+                return checkbox.value;
+            });
+
+        button.textContent = selectedOptions.length > 0 ? selectedOptions.join(', ') : 'Options';
+    });
+</script>
+
+</html>
+
+<script> // Function to retrieve the value of a query parameter from the URL
+    function getQueryParam(name) {
+        const params = new URLSearchParams(window.location.search);
+        return params.get(name);
+    }
+
+    // Retrieve the message from the URL query parameter
+    var message = getQueryParam("message");
+
+    // Display the message if it exists
+    if (message) {
+        var displayDiv = document.getElementById("submissionDisplay");
+        displayDiv.innerHTML = message;
+    }
+
+</script>
+
+<script>
+    function getParameterByName(name) {
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(window.location.href);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    document.addEventListener("DOMContentLoaded", function (event) {
+        var flashMessage = getParameterByName("flashMessage");
+        if (flashMessage) {
+            var flashMessageElement = document.getElementById("flashMessage");
+            flashMessageElement.textContent = flashMessage;
+        }
+    });
+</script>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Log In</title>
+    <!-- Plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="{{url_for('static',filename='css/vertical-layout-light/style.css')}}">
+    <!-- endinject -->
+    <link rel="icon" href="{{url_for('static',filename='images/U.svg')}}">
+
+</head>
+
+<body>
+    <div class="container-scroller ">
+        <!-- partial:partials/_navbar.html -->
+        <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+                <a class="navbar-brand brand-logo mr-5 " href="{{url_for('index')}}"><img src="static/images/logo1d.svg"
+                        class="mr-2" alt="logo" /></a>
+                <div class="navbar-brand brand-logo-mini" href="{{url_for('index')}}"><img src="static/images/U.svg"
+                        alt="logo" /></div>
+            </div>
+            <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+
+            </div>
+        </nav>
+        
+        <div class="container-fluid page-body-wrapper w-100 ">
+            <div class="content-wrapper" style="min-height: inherit;">
+                <div class="container">
+                    <div class="row mt-5">
+                        <div class="col-lg-6" style="float:none;margin:auto;">
+                            <h1 style="margin-bottom: 2rem;     font-size: 60px;">UniJob System</h1>
+                        </div>
+                        <div class="col-lg-6" style="float:none;margin:auto;">
+                            <div class="auth-form-light text-left py-5 px-4 px-sm-5 rounded"
+                                style="background-color: white;">
+                                <h3>Hello! let's get started</h4>
+                                    <h4 style="margin-top: 0.8rem; " class="font-weight-light">Log in to continue.</h6>
+                                        <form class="pt-3" method="POST">
+                                            <div class="form-container" style="margin-top: 2rem;">
+                                                <form-group>
+
+                                                    <input style="margin-bottom: 1rem;" type="id" class="form-control"
+                                                        name="id" placeholder="  Job number or student number"
+                                                        required="" autofocus="" />
+
+                                                    <input style="margin-bottom: 2.5rem;" type="password"
+                                                        class="form-control" name="password" placeholder="  Password"
+                                                        tabindex="1" required="" />
+                                                    <input type="submit"
+                                                        class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn"
+                                                        style="width: 100%;" value="Login" />
+                                                </form-group>
+                                        </form>
+                                        <center>
+                                            {% with errors = get_flashed_messages(category_filter=["error"]) %}
+                                            {% if errors %}
+                                            <div class="alert-message block-message error">
+
+                                                <ul>
+                                                    {%- for msg in errors %}
+                                                    <strong>{{ msg }}</strong>
+                                                    <a class="close" href="#" onclick=delete_flash(this)>x</a>
+                                                    {% endfor -%}
+                                                </ul>
+                                            </div>
+                                            {% endif %}
+                                            {% endwith %}
+                                        </center>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script>
+        function delete_flash(flash) {
+            $(flash).parent().remove()
+        }
+    </script>
+
+</body>
+
+
+</html>

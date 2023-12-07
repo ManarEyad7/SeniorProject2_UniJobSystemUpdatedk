@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Employee</title>
+
+    <!-- Website icon -->
+    <link rel="icon" href="{{url_for('static',filename='images/U.svg')}}">
+
+    <!-- Core CSS files -->
+    <link rel="stylesheet" href="{{url_for('static',filename='vendors/css/vendor.bundle.base.css')}}">
+
+    <!-- Page-specific plugin CSS -->
+    <link rel="stylesheet" href="{{url_for('static',filename='vendors/ti-icons/css/themify-icons.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='vendors/select2/select2.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='vendors/feather/feather.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/vertical-layout-light/style.css')}}">
+
+    <!-- JS files -->
+    <script type="text/javascript" src="{{url_for('static',filename='vendors/css/vendor.bundle.base.css')}}"></script>
+    <link rel="icon" href="{{url_for('static',filename='images/U.svg')}}">
+
+</head>
+
+<body>
+    <div class="container-scroller ">
+        <!-- partial:partials/_navbar.html -->
+        <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex ">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+                <div class="navbar-brand brand-logo mr-5"><img src="../../static/images/logo1d.svg" class="mr-2" alt="logo" />
+                </div>
+                <div class="navbar-brand brand-logo-mini"><img src="../../static/images/U.svg" alt="logo" /></div>
+            </div>
+            <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+
+                <div class="dropdown" style="margin-right: 2.5em; ">
+                    <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuSizeButton3"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Employee
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuSizeButton3">
+                        <li> <p style="border-bottom: 1px solid;">{{ user[4] }}</p>
+                        </li>
+                        <a class="dropdown-item" href="{{url_for('login')}}">Log out</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+
+        <div class="container-fluid page-body-wrapper w-100 ">
+            <div class="content-wrapper" style="min-height: inherit;">
+                <div class="container">
+                    <div class="row mt-5">
+                        <div class="col-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body" style="margin: 1rem;">
+                                    <h4 class="card-title" style="font-size: 20px;">View Job</h4>
+                                    <hr style="margin-bottom: 1.5rem;">
+                                    <form>
+
+                                        <div class="form-group"> <!-- Title --> 
+                                            <label class="font-weight-bold" for="exampleInputName1" style="font-size: 15px;">Job Title:</label>
+                                            <input type="text" class="form-control custom-input" id="exampleInputName1" name="job_title"
+                                                value="{{ jobs[2] }}" readonly>
+                                        </div>
+
+                                        <div class="form-group"> <!-- Required Major --> 
+                                            <label class="font-weight-bold" style="font-size: 15px;">Required Major:</label>
+                                            <input class="form-control custom-input" name="required_major"  
+                                            value="{{ jobs[3] }}" readonly></input>
+                                        </div>
+
+                                        <div class="form-group"> <!-- GPA --> 
+                                            <label class="font-weight-bold" style="font-size: 15px;">Minimum GPA:</label>
+                                            <input class="form-control custom-input" name="min_gpa" value="{{ jobs[4] }}" readonly></input>
+                                        </div>
+
+                                        <div class="form-group"> <!-- Skills --> 
+                                            <label class="font-weight-bold" style="font-size: 15px;">Required Skills:</label>
+                                            <input class="form-control custom-input" name="skills" multiple="multiple"
+                                            value="{{ jobs[5] }}" readonly></input>
+                                        </div>
+
+                                        <div class="form-group" > <!-- Required Languages -->
+                                            <label class="font-weight-bold" class="font-weight-bold" style="font-size: 15px;">Required Languages:</label>
+                                            <input class="form-control custom-input" name="required_languages"  
+                                            value="{{ jobs[10] }}" readonly></input>
+                                            
+                                        </div>
+
+                                        <div class="form-group"> <!-- Experience -->
+                                            <label class="font-weight-bold" style="font-size: 15px;">Would You Prefer Experienced Seekers?</label>
+                                            <input class="form-control custom-input" id="experience" name="experience"  style="width: 100%;" 
+                                            value="{{ jobs[8] }}" readonly>
+                                        </div>
+
+                                        <div class="form-group"> <!-- fixed or flexible -->
+                                            <label class="font-weight-bold"style="font-size: 15px;">Are your working hours fixed or flexible?</label>
+                                            <input class="form-control custom-input" id="experience" name="experience"  style="width: 100%;" 
+                                            value="{{ time[2] }}" readonly>
+                                        </div>
+                                        
+                                        {% if time[2] == "Flexible" %}
+                                        <div class="form-group" > <!-- flexible Required hours -->
+                                            <label for="exampleInputHours" class="font-weight-bold" style="font-size: 15px;">Flexible Required Working Hours (per week):</label>
+                                                <input type="number" class="form-control custom-input" id="exampleInputHours" name="flexible_hours" 
+                                                value="{{ time[3] }}"  style="width: 100%;" readonly>
+                                        </div>
+                                        {% endif %}
+
+                                        {% if time[2] == "Fixed" %}
+                                        <div class="form-group"> <!-- Fixed Required hours -->
+                                            <label for="exampleInputHours" class="col-sm-3 col-form-label font-weight-bold" style="font-size: 15px;">Required Working Hours:</label>
+                                            
+                                            <div class="availability-container">
+                                                <div class="day"> <!-- Sunday time -->
+                                                    <label for="sunday" class="font-weight-bold">Sunday:</label>
+                                                    <div class="period" style="position: relative;">
+                                                        {% if time[4] !=0 %}
+                                                        {% set start_times_list = time[5].split(',') %}
+                                                        {% set end_times_list = time[6].split(',') %}
+                                                        {% set num_periods =  time[4] %}
+
+                                                        {% for index in range(num_periods) %}
+                                                        {% set start_time = start_times_list[index] %}
+                                                        {% set end_time = end_times_list[index] %}
+                                                        
+                                                        <label style="margin: 8px 5px 5px 15px;">Period {{ index + 1 }}:</label>
+                                                        <input type = "text" class="time-pickable start-time" style="width: 100%; margin: 5px 5px 5px 5px; border-Radius:4px; width: fit-content;" value="{{ start_time }} " readonly> </input>                                               
+                                                        <input type = "text" class="time-pickable start-time" style="width: 100%; margin: 5px 5px 5px 5px; border-Radius:4px; width: fit-content;" value="{{ end_time }} " readonly> </input>  
+                                                        <br>
+                                                        {% endfor %}
+                                                        {% else %}
+                                                        <p style="margin-left: 15px;">There are no periods available </p>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="day"> <!-- Monday time -->
+                                                    <label for="monday" class="font-weight-bold">Monday:</label>
+                                                    <div class="period" style="position: relative;">
+                                                        {% if time[7] !=0 %}
+                                                        {% set start_times_list = time[8].split(',') %}
+                                                        {% set end_times_list = time[9].split(',') %}
+                                                        {% set num_periods =  time[7] %}
+
+                                                        {% for index in range(num_periods) %}
+                                                        {% set start_time = start_times_list[index] %}
+                                                        {% set end_time = end_times_list[index] %}
+                                                        
+                                                        <label style="margin: 8px 5px 5px 15px;">Period {{ index + 1 }}:</label>
+                                                        <input type = "text" class="time-pickable start-time" style="width: 100%; margin: 5px 5px 5px 5px; border-Radius:4px; width: fit-content;" value="{{ start_time }} " readonly> </input>                                               
+                                                        <input type = "text" class="time-pickable start-time" style="width: 100%; margin: 5px 5px 5px 5px; border-Radius:4px; width: fit-content;" value="{{ end_time }} " readonly> </input>  
+                                                        <br>
+                                                        {% endfor %}
+                                                        {% else %}
+                                                        <p style="margin-left: 15px;">There are no periods available </p>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="day"> <!-- Tuesday time -->
+                                                    <label for="tuesday" class="font-weight-bold">Tuesday:</label>
+                                                    <div class="period" style="position: relative;">
+                                                        {% if time[10] !=0 %}
+                                                        {% set start_times_list = time[11].split(',') %}
+                                                        {% set end_times_list = time[12].split(',') %}
+                                                        {% set num_periods =  time[10] %}
+
+                                                        {% for index in range(num_periods) %}
+                                                        {% set start_time = start_times_list[index] %}
+                                                        {% set end_time = end_times_list[index] %}
+                                                        
+                                                        <label style="margin: 8px 5px 5px 15px;">Period {{ index + 1 }}:</label>
+                                                        <input type = "text" class="time-pickable start-time" style="width: 100%; margin: 5px 5px 5px 5px; border-Radius:4px; width: fit-content;" value="{{ start_time }} " readonly> </input>                                               
+                                                        <input type = "text" class="time-pickable start-time" style="width: 100%; margin: 5px 5px 5px 5px; border-Radius:4px; width: fit-content;" value="{{ end_time }} " readonly> </input>  
+                                                        <br>
+                                                        {% endfor %}
+                                                        {% else %}
+                                                        <p style="margin-left: 15px;">There are no periods available </p>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="day"> <!-- Wednesday time -->
+                                                    <label for="wednesday" class="font-weight-bold">Wednesday:</label>
+                                                    <div class="period" style="position: relative;">
+                                                        {% if time[13] !=0 %}
+                                                        {% set start_times_list = time[14].split(',') %}
+                                                        {% set end_times_list = time[15].split(',') %}
+                                                        {% set num_periods =  time[13] %}
+
+                                                        {% for index in range(num_periods) %}
+                                                        {% set start_time = start_times_list[index] %}
+                                                        {% set end_time = end_times_list[index] %}
+                                                        
+                                                        <label style="margin: 8px 5px 5px 15px;">Period {{ index + 1 }}:</label>
+                                                        <input type = "text" class="time-pickable start-time" style="width: 100%; margin: 5px 5px 5px 5px; border-Radius:4px; width: fit-content;" value="{{ start_time }} " readonly> </input>                                               
+                                                        <input type = "text" class="time-pickable start-time" style="width: 100%; margin: 5px 5px 5px 5px; border-Radius:4px; width: fit-content;" value="{{ end_time }} " readonly> </input>  
+                                                        <br>
+                                                        {% endfor %}
+                                                        {% else %}
+                                                        <p style="margin-left: 15px;">There are no periods available </p>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="day"> <!-- Thursday time -->
+                                                    <label for="thursday" class="font-weight-bold">Thursday:</label>
+                                                    <div class="period" style="position: relative;">
+                                                        {% if time[16] !=0 %}
+                                                        {% set start_times_list = time[17].split(',') %}
+                                                        {% set end_times_list = time[18].split(',') %}
+                                                        {% set num_periods =  time[16] %}
+
+                                                        {% for index in range(num_periods) %}
+                                                        {% set start_time = start_times_list[index] %}
+                                                        {% set end_time = end_times_list[index] %}
+                                                        
+                                                        <label style="margin: 8px 5px 5px 15px;">Period {{ index + 1 }}:</label>
+                                                        <input type = "text" class="time-pickable start-time" style="width: 100%; margin: 5px 5px 5px 5px; border-Radius:4px; width: fit-content;" value="{{ start_time }} " readonly> </input>                                               
+                                                        <input type = "text" class="time-pickable start-time" style="width: 100%; margin: 5px 5px 5px 5px; border-Radius:4px; width: fit-content;" value="{{ end_time }} " readonly> </input>  
+                                                        <br>
+                                                        {% endfor %}
+                                                        {% else %}
+                                                        <p style="margin-left: 15px;">There are no periods available </p>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        {% endif %}
+
+                                        <div class="form-group"> <!-- Job Duration -->
+                                            <label class="font-weight-bold" style="font-size: 15px;">Job Duration (in weeks):</label>
+                                            <input type="number" class="form-control custom-input" style="width: 100%;" value="{{ jobs[7] }}" readonly>
+                                        </div>
+
+                                        <div class="form-group"> <!-- Work Location -->
+                                            <label class="font-weight-bold" style="font-size: 15px;">Work Location:</label>
+                                            <input class="form-control custom-input" name="work_location" style="width: 100%;"  value="{{ jobs[11] }}" readonly>
+                                        </div>
+
+                                        <div class="form-group"> <!-- Positions -->
+                                            <label for="exampleInputNoPA" class="font-weight-bold" style="font-size: 15px;">Number of Positions Available (per week):</label>
+                                            <input type="number" class="form-control custom-input" style="width: 100%;" value="{{ jobs[9] }}" readonly>
+                                        </div>
+
+                                        <div class="text-center">
+                                            <a href="{{ url_for('employee') }}" class="btn btn-light" style="font-size: 15px;">Cancel</a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</body>
+<!-- Core JS files -->
+<script type="text/javascript" src="{{url_for('static',filename='vendors/js/vendor.bundle.base.js')}}"></script>
+
+
+<!-- Page-specific plugin JS -->
+<script src="../../static/typeahead.js/typeahead.bundle.min.js"></script>
+<script src="../../static/vendors/select2/select2.min.js"></script>
+
+<!-- Custom JS for this page -->
+<script src="../../static/js/file-upload.js"></script>
+<script src="../../static/js/typeahead.js"></script>
+<script src="../../static/js/select2.js"></script>
+
+</html>
